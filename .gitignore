@@ -1,5 +1,7 @@
 .metadata
 .recommenders
+.classpath
+.project
 /RemoteSystemsTempFiles
 /SchedulingResearch/.classpath
 /SchedulingResearch/.project
