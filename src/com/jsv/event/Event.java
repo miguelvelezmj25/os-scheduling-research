@@ -2,6 +2,8 @@ package com.jsv.event;
 
 public class Event {
 	private boolean isCPU;
+	private boolean isNEW;
+	private boolean isOTH;
 	private int timeEvent;
 	
 	public boolean isCPU() {
@@ -12,10 +14,36 @@ public class Event {
 		return timeEvent;
 	}
 
-	public Event(boolean isCPU, int timeEvent) {
-		this.isCPU = isCPU;
+	public Event(int flag, int timeEvent) {
+		this.isCPU = false;
+		this.isNEW = false;
+		this.isOTH = false;
+		
+		if(flag == 0) {
+			this.isNEW = true;
+		} 
+		else if(flag == 1) {
+			this.isCPU = true;
+		} 
+		else if(flag == 2) {
+			this.isOTH = true;
+		} 
+		else {
+			throw new IllegalArgumentException("You entered a number that does not correspond to a event.");
+		}
+			
 		this.timeEvent = timeEvent;
 	}
+
+	public boolean isNEW() {
+		return isNEW;
+	}
+
+
+	public boolean isOTH() {
+		return isOTH;
+	}
+
 	
 	
 

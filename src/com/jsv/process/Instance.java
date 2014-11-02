@@ -19,6 +19,10 @@ public class Instance implements Comparable<Instance>{
 		this.pid = pid;
 		this.startTime = startTime;
 	}
+	public Event remove()
+	{
+		return this.eventList.remove(0);
+	}
 	
 	@Override
 	public int compareTo(Instance o) {
@@ -50,7 +54,12 @@ public class Instance implements Comparable<Instance>{
 		
 		return this.eventList.get(0).getTimeEvent();
 	}
-	
+	public int getNextOthEventTime() {
+		if(this.eventList.get(0).isCPU()){throw new IllegalArgumentException("Next event is not OTH, but process is in OTH queue");}
+		
+		return this.eventList.get(0).getTimeEvent();
+	}
+		
 	/** */
 	private int getTotalNumberEvents() {
 		return 0;
@@ -80,5 +89,6 @@ public class Instance implements Comparable<Instance>{
 	public void setStartTime(int startTime) {
 		this.startTime = startTime;
 	}
+	
 
 }

@@ -1,7 +1,7 @@
 package com.jsv.process;
 
+import com.jsv.event.Event;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import com.jsv.Driver;
@@ -42,6 +42,7 @@ public class CPU {
 	public Instance remove()
 	{
 		Instance current = this.processQueue.poll();
+		Event event = current.remove();
 		if(this.processQueue.size()>0)
 		{
 			this.currentProcessFinishTime = Driver.clock + this.processQueue.peek().getNextCpuEventTime();

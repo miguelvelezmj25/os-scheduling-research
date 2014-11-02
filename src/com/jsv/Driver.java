@@ -25,6 +25,7 @@ public class Driver {
 	/** Alternate CPU and other call. Always start with CPU. 
 	 * @throws IOException 
 	 * */
+	
 	public static void main(String[] args) throws IOException {		
 		// First come first serve
 		
@@ -64,13 +65,13 @@ public class Driver {
 			// CPU event
 			if(commandTime[0].equals(CPU)) {
 				// Get the last process and add a new event
-				processTable.get(pid-1).addEvent(new Event(true, Integer.parseInt(commandTime[1])));
+				processTable.get(pid-1).addEvent(new Event(1, Integer.parseInt(commandTime[1])));
 			}
 						
 			// Other event
 			if(commandTime[0].equals(OTH)) {
 				// Get the last process and add a new event
-				processTable.get(pid-1).addEvent(new Event(false, Integer.parseInt(commandTime[1])));
+				processTable.get(pid-1).addEvent(new Event(2, Integer.parseInt(commandTime[1])));
 			}
 					
 			// Read a new line
