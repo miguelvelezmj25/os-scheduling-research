@@ -19,8 +19,7 @@ public class Driver {
 	private static final String OTH = "OTH";
 	
 	
-	/** Alternate CPU and other call.
-	 * Always start with CPU. 
+	/** Alternate CPU and other call. Always start with CPU. 
 	 * @throws IOException 
 	 * */
 	public static void main(String[] args) throws IOException {		
