@@ -1,23 +1,27 @@
 package com.jsv.process;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import com.jsv.event.Event;
 
+/**
+ * Process class
+ */
 
-public class Process implements Comparable<Process>{
+public class Instance implements Comparable<Instance>{
 	private int			pid;
 	private List<Event> eventList = new LinkedList<Event>();
 	private int			startTime;
 	
 	
-	public Process(int pid, int startTime) {
+	public Instance(int pid, int startTime) {
 		this.pid = pid;
 		this.startTime = startTime;
 	}
 	
 	@Override
-	public int compareTo(Process o) {
+	public int compareTo(Instance o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -41,8 +45,10 @@ public class Process implements Comparable<Process>{
 	
 	/** Get the event time of the next CPU event
 	 */
-	private int getNextCpuEventTime() {
-		return 0;
+	public int getNextCpuEventTime() {
+		if(!this.eventList.get(0).isCPU()){throw new IllegalArgumentException("Next event is not CPU, but process is in CPU queue");}
+		
+		return this.eventList.get(0).getTimeEvent();
 	}
 	
 	/** */

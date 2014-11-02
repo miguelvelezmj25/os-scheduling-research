@@ -9,7 +9,8 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import com.jsv.event.Event;
-import com.jsv.process.Process;
+import com.jsv.process.Instance;
+import com.jsv.process.RyanList;
 import com.jsv.process.ShortestJobTimeProcess;
 
 public class Driver {
@@ -17,6 +18,8 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
+	public static int clock = 0; //Start at time 0
+	public static final int NUM_CPUS = 2;
 	
 	
 	/** Alternate CPU and other call. Always start with CPU. 
@@ -36,7 +39,8 @@ public class Driver {
 		
 		// Multiqueue
 		
-		List<Process> processTable = new LinkedList<Process>();
+		
+		List<Instance> processTable = new LinkedList<Instance>();
 		int pid = 0;
 		
 		StringBuilder filePath = new StringBuilder("src/input.txt");
@@ -71,19 +75,30 @@ public class Driver {
 					
 			// Read a new line
 			line = reader.readLine();			
-		}
+		} //Reads file in
 		
 		// Close the reader
 		reader.close();
 		
 		
-		Queue<Process> priority = new PriorityQueue<Process>(processTable);
-			
-
+		Queue<Instance> priority = new PriorityQueue<Instance>(processTable);
 		
+		/*
 		for(int i = 0; !priority.isEmpty(); i++) {
 			System.out.println(priority.poll().getPid());		
+		}*/
+				
+		RyanList slechta = new RyanList(Driver.NUM_CPUS);
+		for(Instance i : processTable)
+		{
+			slechta.add(i);
 		}
+		
+		slechta.printList();
+		System.out.println(slechta.pop(1).getPid());
+		
+		slechta.printList();
+		
 	}
 
 }
