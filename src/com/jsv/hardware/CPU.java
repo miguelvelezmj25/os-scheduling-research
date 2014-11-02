@@ -1,12 +1,12 @@
 package com.jsv.hardware;
 
+import com.jsv.Driver;
 import com.jsv.command.Command;
 import com.jsv.instance.Instance;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-import com.jsv.Driver;
 
 public class CPU {
 	
