@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.jsv.event.Event;
-import com.jsv.process.Instance;
-import com.jsv.process.RyanList;
-import com.jsv.process.ShortestJobTimeProcess;
+import com.jsv.command.Command;
+import com.jsv.hardware.CPUList;
+import com.jsv.instance.Instance;
+import com.jsv.instance.ShortestJobTimeInstance;
 
 public class Driver {
 	
@@ -58,20 +58,20 @@ public class Driver {
 			if(commandTime[0].equals(NEW)) {
 //				processTable.add(new FCFSProcess(pid, Integer.parseInt(commandTime[1])));
 //				processTable.add(new TotalTimeProcess(pid, Integer.parseInt(commandTime[1])));
-				processTable.add(new ShortestJobTimeProcess(pid, Integer.parseInt(commandTime[1])));
+				processTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
 			// CPU event
 			if(commandTime[0].equals(CPU)) {
 				// Get the last process and add a new event
-				processTable.get(pid-1).addEvent(new Event(1, Integer.parseInt(commandTime[1])));
+				processTable.get(pid-1).addCommand(new Command(1, Integer.parseInt(commandTime[1])));
 			}
 						
 			// Other event
 			if(commandTime[0].equals(OTH)) {
 				// Get the last process and add a new event
-				processTable.get(pid-1).addEvent(new Event(2, Integer.parseInt(commandTime[1])));
+				processTable.get(pid-1).addCommand(new Command(2, Integer.parseInt(commandTime[1])));
 			}
 					
 			// Read a new line
@@ -89,7 +89,7 @@ public class Driver {
 			System.out.println(priority.poll().getPid());		
 		}*/
 				
-		RyanList slechta = new RyanList(Driver.NUM_CPUS);
+		CPUList slechta = new CPUList(Driver.NUM_CPUS);
 		for(Instance i : processTable)
 		{
 			slechta.add(i);
