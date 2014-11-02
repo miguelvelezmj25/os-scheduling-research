@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.jsv.process.Event;
+import com.jsv.event.Event;
 import com.jsv.process.Process;
 import com.jsv.process.ShortestJobTimeProcess;
 
@@ -35,6 +35,7 @@ public class Driver {
 		// Time slicing
 		
 		// Multiqueue
+		
 		List<Process> processTable = new LinkedList<Process>();
 		int pid = 0;
 		

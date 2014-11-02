@@ -2,6 +2,8 @@ package com.jsv.process;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.jsv.event.Event;
+
 
 public class Process implements Comparable<Process>{
 	private int			pid;

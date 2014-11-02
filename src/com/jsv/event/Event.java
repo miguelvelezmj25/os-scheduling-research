@@ -1,4 +1,4 @@
-package com.jsv.process;
+package com.jsv.event;
 
 public class Event {
 	private boolean isCPU;
