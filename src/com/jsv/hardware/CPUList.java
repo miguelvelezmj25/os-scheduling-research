@@ -7,26 +7,26 @@ import com.jsv.instance.Instance;
 
 public class CPUList{
 	
-	private ArrayList<CPU> processQueues;
+	private ArrayList<CPU> instanceQueues;
 	
 	public CPUList(int numCPU)
 	{
-		processQueues = new ArrayList<CPU>();
+		instanceQueues = new ArrayList<CPU>();
 		
 		for(int i =0;i<numCPU;i++){
-			processQueues.add(new CPU());
+			instanceQueues.add(new CPU());
 		}
 	}
 	
-	//Returns the scheduled time in the process
+	//Returns the scheduled time in the Instance
 	public int getTotalTime(int cpuID)
 	{
-		return this.processQueues.get(cpuID).getTotalTime();
+		return this.instanceQueues.get(cpuID).getTotalTime();
 	}
 	
 	public Instance pop(int cpuID)
 	{
-		return this.processQueues.get(cpuID).remove();
+		return this.instanceQueues.get(cpuID).remove();
 	}
 	
 	public int getMinimumCPUTime()
@@ -34,12 +34,12 @@ public class CPUList{
 		int minIndex = Integer.MAX_VALUE;
 		int time = Integer.MAX_VALUE;
 		
-		for(int cpuID =0;cpuID<this.processQueues.size();cpuID++)
+		for(int cpuID =0;cpuID<this.instanceQueues.size();cpuID++)
 		{
-			if(this.processQueues.get(cpuID).getTotalTime()<time)
+			if(this.instanceQueues.get(cpuID).getTotalTime()<time)
 			{
 				minIndex = cpuID;
-				time = this.processQueues.get(cpuID).getTotalTime();
+				time = this.instanceQueues.get(cpuID).getTotalTime();
 			}
 		}
 		
@@ -49,17 +49,17 @@ public class CPUList{
 	public void add(Instance i)
 	{
 		int leastTime = this.getMinimumCPUTime();
-		this.processQueues.get(leastTime).add(i);
+		this.instanceQueues.get(leastTime).add(i);
 	}
 	
 	public CPU get(int cpuID)
 	{
-		return this.processQueues.get(cpuID);
+		return this.instanceQueues.get(cpuID);
 	}
 	
 	public void printList()
 	{
-		for(CPU cpu : this.processQueues)
+		for(CPU cpu : this.instanceQueues)
 		{
 			System.out.println(cpu);
 		}

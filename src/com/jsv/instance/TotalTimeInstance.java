@@ -1,7 +1,7 @@
 package com.jsv.instance;
 
 /**
- * Sorts by the total time that a process needs to execute 
+ * Sorts by the total time that a Instance needs to execute 
  */
 public class TotalTimeInstance extends Instance {
 

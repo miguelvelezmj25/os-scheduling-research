@@ -6,20 +6,21 @@ import com.jsv.instance.Instance;
 public class OTH implements Comparable<OTH>
 {
 	private int exitTime;
-	private Instance process;
-	public OTH(Instance p)
+	private Instance instance;
+	
+	public OTH(Instance instance)
 	{
-		this.process = p;
-		this.exitTime = Driver.clock + process.getNextOthEventTime();
+		this.instance = instance;
+		this.exitTime = Driver.clock + instance.getNextOthEventTime();
 	}
 	public int getExitTime()
 	{
 		return this.exitTime;
 	}
 	
-	public Instance getProcess()
+	public Instance getInstance()
 	{
-		return this.process;
+		return this.instance;
 	}
 	
 	public int compareTo(OTH o) 

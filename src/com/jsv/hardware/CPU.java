@@ -1,41 +1,47 @@
 package com.jsv.hardware;
 
+import com.jsv.Driver;
 import com.jsv.command.Command;
 import com.jsv.instance.Instance;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-import com.jsv.Driver;
+/**
+ * CPU class that has a priority queue when Instances wait to access it and a finish time
+ * for the current Instance. The first place in the queue indicates that the Instance is
+ * "in the CPU."
+ */
 
 public class CPU {
 	
-	/**
-	 * Implemented such that the first place in the queue indicates that the process is "in the CPU."
-	 */
-	private PriorityQueue<Instance> processQueue = new PriorityQueue<Instance>();
-	private int currentProcessFinishTime = -1; //Indicates that there is no current process
+	private PriorityQueue<Instance> 	instanceQueue = new PriorityQueue<Instance>();
+	private int 						currentInstanceFinishTime; 
 	
-	public void add(Instance p)
-	{
-		if(this.processQueue.isEmpty())
-		{
-			this.currentProcessFinishTime = Driver.clock+p.getNextCpuEventTime();
+	public CPU() {
+		this.currentInstanceFinishTime = -1;
+	}
+	
+	/***/
+	public void add(Instance instance) {
+		if(this.instanceQueue.isEmpty()) {
+			this.currentInstanceFinishTime = Driver.clock+instance.getNextCpuEventTime();
 		}
-		processQueue.add(p);
+		
+		instanceQueue.add(instance);
 	}
 	
 	public int nextFinishTime()
 	{
-		return this.currentProcessFinishTime;
+		return this.currentInstanceFinishTime;
 	}
 	
 	public int getTotalTime()
 	{
 		int totalTime = 0;
-		for(Instance i : processQueue)
+		for(Instance instance : instanceQueue)
 		{
-			totalTime += i.getNextCpuEventTime();
+			totalTime += instance.getNextCpuEventTime();
 		}
 		
 		return totalTime;
@@ -43,13 +49,13 @@ public class CPU {
 	
 	public Instance remove()
 	{
-		Instance current = this.processQueue.poll();
+		Instance current = this.instanceQueue.poll();
 		Command event = current.remove();
-		if(this.processQueue.size()>0)
+		if(this.instanceQueue.size()>0)
 		{
-			this.currentProcessFinishTime = Driver.clock + this.processQueue.peek().getNextCpuEventTime();
+			this.currentInstanceFinishTime = Driver.clock + this.instanceQueue.peek().getNextCpuEventTime();
 		}else{
-			this.currentProcessFinishTime = -1;
+			this.currentInstanceFinishTime = -1;
 		}
 		return current;
 	}
@@ -57,7 +63,7 @@ public class CPU {
 	@Override
 	public String toString()
 	{
-		ArrayList<Instance> copy = new ArrayList(this.processQueue);
+		ArrayList<Instance> copy = new ArrayList(this.instanceQueue);
 		String ret_string = "";
 		
 		for(Instance i : copy)
@@ -67,6 +73,26 @@ public class CPU {
 		
 		ret_string.trim();
 		return ret_string;
+	}
+	
+	
+	// Getters
+	public PriorityQueue<Instance> getInstanceQueue() {
+		return this.instanceQueue;
+	}
+
+	public int getCurrentInstanceFinishTime() {
+		return this.currentInstanceFinishTime;
+	}
+
+	
+	// Setters
+//	public void setInstanceQueue(PriorityQueue<Instance> instanceQueue) {
+//		this.instanceQueue = instanceQueue;
+//	}
+	
+	public void setCurrentInstanceFinishTime(int currentInstanceFinishTime) {
+		this.currentInstanceFinishTime = currentInstanceFinishTime;
 	}
 
 }

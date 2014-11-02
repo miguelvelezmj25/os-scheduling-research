@@ -1,7 +1,7 @@
 package com.jsv.instance;
 
 /**
- * The first command of a process is CPU. We take the first command and
+ * The first command of a Instance is CPU. We take the first command and
  * sort by that time
  */
 public class ShortestJobTimeInstance extends Instance {

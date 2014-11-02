@@ -42,7 +42,7 @@ public class Instance implements Comparable<Instance>{
 	}
 	
 	// TODO fast access time
-	/** Getting the total time of all of the commands of this process
+	/** Getting the total time of all of the commands of this Instance
 	 */
 	protected int getTotalTime() {
 		int totalTime = 0;
@@ -58,7 +58,7 @@ public class Instance implements Comparable<Instance>{
 	 */
 	public int getNextCpuEventTime() {
 		if(!this.getEventList().get(0).isCPU()) {
-			throw new IllegalArgumentException("Next event is not CPU, but process is in CPU queue");
+			throw new IllegalArgumentException("Next event is not CPU, but Instance is in CPU queue");
 		}
 		
 		return this.eventList.get(0).getTimeEvent();
@@ -68,7 +68,7 @@ public class Instance implements Comparable<Instance>{
 	 */
 	public int getNextOthEventTime() {
 		if(this.getEventList().get(0).isCPU()){ 
-			throw new IllegalArgumentException("Next event is not OTH, but process is in OTH queue");
+			throw new IllegalArgumentException("Next event is not OTH, but Instance is in OTH queue");
 		}
 		
 		return this.eventList.get(0).getTimeEvent();
@@ -95,15 +95,15 @@ public class Instance implements Comparable<Instance>{
 	
 	
 	// Setters
-	private void setEventList(List<Command> eventList) {
-		this.eventList = eventList;
-	}
-
-	private void setPid(int pid) {
-		this.pid = pid;
-	}
-
-	private void setStartTime(int startTime) {
-		this.startTime = startTime;
-	}
+//	private void setEventList(List<Command> eventList) {
+//		this.eventList = eventList;
+//	}
+//
+//	private void setPid(int pid) {
+//		this.pid = pid;
+//	}
+//
+//	private void setStartTime(int startTime) {
+//		this.startTime = startTime;
+//	}
 }

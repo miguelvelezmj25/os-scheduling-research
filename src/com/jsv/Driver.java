@@ -1,4 +1,5 @@
 package com.jsv;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -41,7 +42,7 @@ public class Driver {
 		// Multiqueue
 		
 		
-		List<Instance> processTable = new LinkedList<Instance>();
+		List<Instance> instanceTable = new LinkedList<Instance>();
 		int pid = 0;
 		
 		StringBuilder filePath = new StringBuilder("src/input.txt");
@@ -54,24 +55,24 @@ public class Driver {
 		while(line != null) {
 			commandTime = line.split(" ");
 			
-			// Make a new process
+			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
-//				processTable.add(new FCFSProcess(pid, Integer.parseInt(commandTime[1])));
-//				processTable.add(new TotalTimeProcess(pid, Integer.parseInt(commandTime[1])));
-				processTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new TotalTimeInstance(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
 			// CPU event
 			if(commandTime[0].equals(CPU)) {
-				// Get the last process and add a new event
-				processTable.get(pid-1).addCommand(new Command(1, Integer.parseInt(commandTime[1])));
+				// Get the last Instance and add a new event
+				instanceTable.get(pid-1).addCommand(new Command(1, Integer.parseInt(commandTime[1])));
 			}
 						
 			// Other event
 			if(commandTime[0].equals(OTH)) {
-				// Get the last process and add a new event
-				processTable.get(pid-1).addCommand(new Command(2, Integer.parseInt(commandTime[1])));
+				// Get the last Instance and add a new event
+				instanceTable.get(pid-1).addCommand(new Command(2, Integer.parseInt(commandTime[1])));
 			}
 					
 			// Read a new line
@@ -82,7 +83,7 @@ public class Driver {
 		reader.close();
 		
 		
-		Queue<Instance> priority = new PriorityQueue<Instance>(processTable);
+		Queue<Instance> priority = new PriorityQueue<Instance>(instanceTable);
 		
 		/*
 		for(int i = 0; !priority.isEmpty(); i++) {
@@ -90,7 +91,7 @@ public class Driver {
 		}*/
 				
 		CPUList slechta = new CPUList(Driver.NUM_CPUS);
-		for(Instance i : processTable)
+		for(Instance i : instanceTable)
 		{
 			slechta.add(i);
 		}
