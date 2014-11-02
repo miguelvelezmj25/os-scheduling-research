@@ -1,5 +1,9 @@
 package com.jsv.process;
 
+/**
+ * The first command of a process is CPU. We take the first command and
+ * sort by that time
+ */
 public class ShortestJobTimeProcess extends Process {
 
 	public ShortestJobTimeProcess(int pid, int startTime) {

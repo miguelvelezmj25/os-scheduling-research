@@ -1,5 +1,8 @@
 package com.jsv.process;
 
+/**
+ * Sorts by the total time that a process needs to execute 
+ */
 public class TotalTimeProcess extends Process {
 
 	public TotalTimeProcess(int pid, int startTime) {
