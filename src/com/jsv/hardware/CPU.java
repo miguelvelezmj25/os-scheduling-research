@@ -66,9 +66,9 @@ public class CPU {
 		ArrayList<Instance> copy = new ArrayList(this.instanceQueue);
 		String ret_string = "";
 		
-		for(Instance i : copy)
+		for(Instance instance : copy)
 		{
-			ret_string += i.getPid()+" ";
+			ret_string += instance.getPid()+" ";
 		}
 		
 		ret_string.trim();

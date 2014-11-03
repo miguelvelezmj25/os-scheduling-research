@@ -91,9 +91,9 @@ public class Driver {
 		}*/
 				
 		CPUList slechta = new CPUList(Driver.NUM_CPUS);
-		for(Instance i : instanceTable)
+		for(Instance instance : instanceTable)
 		{
-			slechta.add(i);
+			slechta.add(instance);
 		}
 		
 		slechta.printList();

@@ -46,10 +46,10 @@ public class CPUList{
 		return minIndex;
 	}
 	
-	public void add(Instance i)
+	public void add(Instance instance)
 	{
 		int leastTime = this.getMinimumCPUTime();
-		this.instanceQueues.get(leastTime).add(i);
+		this.instanceQueues.get(leastTime).add(instance);
 	}
 	
 	public CPU get(int cpuID)
