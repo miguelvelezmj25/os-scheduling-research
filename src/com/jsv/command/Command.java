@@ -1,19 +1,15 @@
 package com.jsv.command;
 
+/**
+ * Command class that has a type and a duration 
+ */
+
 public class Command {
 	private boolean isCPU;
 	private boolean isNEW;
 	private boolean isOTH;
-	private int timeCommand;
+	private int 	timeCommand;
 	
-	public boolean isCPU() {
-		return isCPU;
-	}
-
-	public int getTimeCommand() {
-		return timeCommand;
-	}
-
 	public Command(int flag, int timeCommand) {
 		this.isCPU = false;
 		this.isNEW = false;
@@ -31,20 +27,47 @@ public class Command {
 		else {
 			throw new IllegalArgumentException("You entered a number that does not correspond to a Command.");
 		}
-			
+		
 		this.timeCommand = timeCommand;
 	}
 
-	public boolean isNEW() {
-		return isNEW;
+
+	// Getters
+	public boolean getIsCPU() {
+		return this.isCPU;
+	}
+
+	public boolean getIsNEW() {
+		return this.isNEW;
+	}
+
+	public boolean getIsOTH() {
+		return this.isOTH;
+	}
+
+	public int getTimeCommand() {
+		return this.timeCommand;
 	}
 
 
-	public boolean isOTH() {
-		return isOTH;
-	}
-
+	// Setters
+//	private void setCPU(boolean isCPU) {
+//		this.isCPU = isCPU;
+//	}
+//
+//
+//	private void setNEW(boolean isNEW) {
+//		this.isNEW = isNEW;
+//	}
+//
+//
+//	private void setOTH(boolean isOTH) {
+//		this.isOTH = isOTH;
+//	}
+//
+//
+//	private void setTimeCommand(int timeCommand) {
+//		this.timeCommand = timeCommand;
+//	}
 	
-	
-
 }

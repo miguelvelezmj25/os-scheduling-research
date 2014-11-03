@@ -15,9 +15,11 @@ import java.util.PriorityQueue;
 public class CPU {
 	
 	private PriorityQueue<Instance> 	instanceQueue = new PriorityQueue<Instance>();
-	private int 						currentInstanceFinishTime; 
+	private int 						currentInstanceFinishTime;
+	private int 						cpuId; 
 	
-	public CPU() {
+	public CPU(int i) {
+		this.cpuId = i;
 		this.currentInstanceFinishTime = -1;
 	}
 	
@@ -67,7 +69,7 @@ public class CPU {
 	 */
 	public String toString() {
 		ArrayList<Instance> queue = new ArrayList<Instance>(this.getInstanceQueue());
-		String returnString = "";
+		String returnString = "CPU " + this.getCPUId() + ": ";
 		
 		for(Instance instance : queue) {
 			returnString += instance.getPid() + " ";
@@ -85,6 +87,10 @@ public class CPU {
 	public int getCurrentInstanceFinishTime() {
 		return this.currentInstanceFinishTime;
 	}
+	
+	public int getCPUId() {
+		return this.cpuId;
+	}
 
 	
 	// Setters
@@ -95,5 +101,9 @@ public class CPU {
 	public void setCurrentInstanceFinishTime(int currentInstanceFinishTime) {
 		this.currentInstanceFinishTime = currentInstanceFinishTime;
 	}
+	
+//	public void setCPUId(int cpuId) {
+//		this.cpuId = cpuId;
+//	}
 
 }

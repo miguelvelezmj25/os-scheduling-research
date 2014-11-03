@@ -1,7 +1,6 @@
 package com.jsv;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -91,13 +90,16 @@ public class Driver {
 		}*/
 				
 		CPUList slechta = new CPUList(Driver.NUM_CPUS);
+		
 		for(Instance instance : instanceTable)
 		{
 			slechta.add(instance);
 		}
 		
+	
 		slechta.printList();
-		System.out.println(slechta.pop(1).getPid());
+		
+		System.out.println("Removing an Instance from CPU 1: " + slechta.pop(1).getPid());
 		
 		slechta.printList();
 		

@@ -14,7 +14,7 @@ public class CPUList{
 	
 	public CPUList(int numCPU) {		
 		for(int i = 0; i < numCPU; i++){
-			this.instanceQueues.add(new CPU());
+			this.instanceQueues.add(new CPU(i));
 		}
 	}
 	

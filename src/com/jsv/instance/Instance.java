@@ -58,7 +58,7 @@ public class Instance implements Comparable<Instance>{
 	/** Get the Command time of the next CPU command
 	 */
 	public int getNextCPUCommandTime() {
-		if(!this.getCommandList().get(0).isCPU()) {
+		if(!this.getCommandList().get(0).getIsCPU()) {
 			throw new IllegalArgumentException("Next Command is not CPU, but Instance is in CPU queue");
 		}
 		
@@ -68,7 +68,7 @@ public class Instance implements Comparable<Instance>{
 	/** Get the Command time of the next OTH command
 	 */
 	public int getNextOTHCommandTime() {
-		if(this.getCommandList().get(0).isCPU()){ 
+		if(this.getCommandList().get(0).getIsCPU()){ 
 			throw new IllegalArgumentException("Next Command is not OTH, but Instance is in OTH queue");
 		}
 		
