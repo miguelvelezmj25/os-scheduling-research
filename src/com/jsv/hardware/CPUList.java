@@ -1,68 +1,81 @@
 package com.jsv.hardware;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 import com.jsv.instance.Instance;
 
+/**
+ * CPU List class that holds a list of CPU objects
+ */
+
 public class CPUList{
 	
-	private ArrayList<CPU> instanceQueues;
+	private ArrayList<CPU> instanceQueues = new ArrayList<CPU>();
 	
-	public CPUList(int numCPU)
-	{
-		instanceQueues = new ArrayList<CPU>();
-		
-		for(int i =0;i<numCPU;i++){
-			instanceQueues.add(new CPU());
+	public CPUList(int numCPU) {		
+		for(int i = 0; i < numCPU; i++){
+			this.instanceQueues.add(new CPU());
 		}
 	}
 	
-	//Returns the scheduled time in the Instance
-	public int getTotalTime(int cpuID)
-	{
-		return this.instanceQueues.get(cpuID).getTotalTime();
+	/** Returns the scheduled time in the Instance of the specified CPU
+	 */
+	public int getTotalTime(int cpuID) {
+		return this.getInstanceQueues().get(cpuID).getTotalTime();
 	}
 	
-	public Instance pop(int cpuID)
-	{
-		return this.instanceQueues.get(cpuID).remove();
+	/** Returns the first Instance from the specified CPU
+	 */
+	public Instance pop(int cpuID) {
+		return this.getInstanceQueues().get(cpuID).remove();
 	}
 	
-	public int getMinimumCPUTime()
-	{
+	/** Returns the CPU index with the smallest current total time
+	 */
+	public int getMinimumCPUTime() {
 		int minIndex = Integer.MAX_VALUE;
 		int time = Integer.MAX_VALUE;
 		
-		for(int cpuID =0;cpuID<this.instanceQueues.size();cpuID++)
-		{
-			if(this.instanceQueues.get(cpuID).getTotalTime()<time)
-			{
-				minIndex = cpuID;
-				time = this.instanceQueues.get(cpuID).getTotalTime();
+		for(int cpuId = 0; cpuId < this.getInstanceQueues().size(); cpuId++) {
+			if(this.getInstanceQueues().get(cpuId).getTotalTime() < time) {
+				minIndex = cpuId;
+				time = this.getInstanceQueues().get(cpuId).getTotalTime();
 			}
 		}
 		
 		return minIndex;
 	}
 	
-	public void add(Instance instance)
-	{
+	/** Adds an Instance to the CPU with the minimum total time
+	 */
+	public void add(Instance instance) {
 		int leastTime = this.getMinimumCPUTime();
-		this.instanceQueues.get(leastTime).add(instance);
+		this.getInstanceQueues().get(leastTime).add(instance);
 	}
 	
-	public CPU get(int cpuID)
-	{
-		return this.instanceQueues.get(cpuID);
+	/** Return the specfied CPU
+	 */
+	public CPU get(int cpuID) {
+		return this.getInstanceQueues().get(cpuID);
 	}
 	
-	public void printList()
-	{
-		for(CPU cpu : this.instanceQueues)
-		{
+	/** Prints the CPUs
+	 */
+	public void printList()	{
+		for(CPU cpu : this.getInstanceQueues()) {
 			System.out.println(cpu);
 		}
 	}
+
+	// Getters
+	public ArrayList<CPU> getInstanceQueues() {
+		return instanceQueues;
+	}
+
+	
+	// Setters
+//	public void setInstanceQueues(ArrayList<CPU> instanceQueues) {
+//		this.instanceQueues = instanceQueues;
+//	}
 
 }

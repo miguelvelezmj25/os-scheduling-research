@@ -70,7 +70,7 @@ public class CPU {
 		String returnString = "";
 		
 		for(Instance instance : queue) {
-			returnString += instance.getPid() + ", ";
+			returnString += instance.getPid() + " ";
 		}
 		
 		return returnString.trim();
