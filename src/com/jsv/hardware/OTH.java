@@ -11,7 +11,7 @@ public class OTH implements Comparable<OTH>
 	public OTH(Instance instance)
 	{
 		this.instance = instance;
-		this.exitTime = Driver.clock + instance.getNextOthEventTime();
+		this.exitTime = Driver.clock + instance.getNextOTHCommandTime();
 	}
 	public int getExitTime()
 	{

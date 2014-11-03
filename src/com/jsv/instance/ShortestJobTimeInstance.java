@@ -12,8 +12,8 @@ public class ShortestJobTimeInstance extends Instance {
 	
 	@Override
 	public int compareTo(Instance o) {
-		int thisNextTime = super.getEventList().get(0).getTimeEvent();
-		int otherNextTime = o.getEventList().get(0).getTimeEvent();
+		int thisNextTime = super.getCommandList().get(0).getTimeCommand();
+		int otherNextTime = o.getCommandList().get(0).getTimeCommand();
 		
 		if(thisNextTime < otherNextTime) {
 			return -1;

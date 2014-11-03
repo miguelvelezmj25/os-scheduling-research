@@ -25,7 +25,7 @@ public class CPU {
 	/***/
 	public void add(Instance instance) {
 		if(this.instanceQueue.isEmpty()) {
-			this.currentInstanceFinishTime = Driver.clock+instance.getNextCpuEventTime();
+			this.currentInstanceFinishTime = Driver.clock + instance.getNextCPUCommandTime();
 		}
 		
 		instanceQueue.add(instance);
@@ -41,7 +41,7 @@ public class CPU {
 		int totalTime = 0;
 		for(Instance instance : instanceQueue)
 		{
-			totalTime += instance.getNextCpuEventTime();
+			totalTime += instance.getNextCPUCommandTime();
 		}
 		
 		return totalTime;
@@ -50,10 +50,10 @@ public class CPU {
 	public Instance remove()
 	{
 		Instance current = this.instanceQueue.poll();
-		Command event = current.remove();
+		Command command = current.remove();
 		if(this.instanceQueue.size()>0)
 		{
-			this.currentInstanceFinishTime = Driver.clock + this.instanceQueue.peek().getNextCpuEventTime();
+			this.currentInstanceFinishTime = Driver.clock + this.instanceQueue.peek().getNextCPUCommandTime();
 		}else{
 			this.currentInstanceFinishTime = -1;
 		}

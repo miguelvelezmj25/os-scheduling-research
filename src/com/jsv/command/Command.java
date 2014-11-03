@@ -4,17 +4,17 @@ public class Command {
 	private boolean isCPU;
 	private boolean isNEW;
 	private boolean isOTH;
-	private int timeEvent;
+	private int timeCommand;
 	
 	public boolean isCPU() {
 		return isCPU;
 	}
 
-	public int getTimeEvent() {
-		return timeEvent;
+	public int getTimeCommand() {
+		return timeCommand;
 	}
 
-	public Command(int flag, int timeEvent) {
+	public Command(int flag, int timeCommand) {
 		this.isCPU = false;
 		this.isNEW = false;
 		this.isOTH = false;
@@ -29,10 +29,10 @@ public class Command {
 			this.isOTH = true;
 		} 
 		else {
-			throw new IllegalArgumentException("You entered a number that does not correspond to a event.");
+			throw new IllegalArgumentException("You entered a number that does not correspond to a Command.");
 		}
 			
-		this.timeEvent = timeEvent;
+		this.timeCommand = timeCommand;
 	}
 
 	public boolean isNEW() {

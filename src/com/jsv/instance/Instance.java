@@ -6,12 +6,12 @@ import java.util.List;
 import com.jsv.command.Command;
 
 /**
- * Instance class that has a pid, a start time, and a list of events/commands that it 
+ * Instance class that has a pid, a start time, and a list of commands that it 
  * executes. It implements the Comparable interface
  */
 
 public class Instance implements Comparable<Instance>{
-	private List<Command> 	eventList = new LinkedList<Command>();
+	private List<Command> 	commandList = new LinkedList<Command>();
 	private int				pid;
 	private int				startTime;
 	
@@ -32,13 +32,13 @@ public class Instance implements Comparable<Instance>{
 	 * it
 	 */
 	public Command remove() {
-		return this.getEventList().remove(0);
+		return this.getCommandList().remove(0);
 	}
 	
 	/** Adds an Command to the command list
 	 */
 	public void addCommand(Command command) {
-		this.getEventList().add(command);
+		this.getCommandList().add(command);
 	}
 	
 	// TODO fast access time
@@ -47,36 +47,36 @@ public class Instance implements Comparable<Instance>{
 	protected int getTotalTime() {
 		int totalTime = 0;
 		
-		for(Command command : this.getEventList()) {
-			totalTime = totalTime + command.getTimeEvent();
+		for(Command command : this.getCommandList()) {
+			totalTime = totalTime + command.getTimeCommand();
 		}
 		
 		return totalTime;
 	}
 	
-	/** Get the event time of the next CPU command
+	/** Get the Command time of the next CPU command
 	 */
-	public int getNextCpuEventTime() {
-		if(!this.getEventList().get(0).isCPU()) {
-			throw new IllegalArgumentException("Next event is not CPU, but Instance is in CPU queue");
+	public int getNextCPUCommandTime() {
+		if(!this.getCommandList().get(0).isCPU()) {
+			throw new IllegalArgumentException("Next Command is not CPU, but Instance is in CPU queue");
 		}
 		
-		return this.eventList.get(0).getTimeEvent();
+		return this.commandList.get(0).getTimeCommand();
 	}
 	
-	/** Get the event time of the next OTH command
+	/** Get the Command time of the next OTH command
 	 */
-	public int getNextOthEventTime() {
-		if(this.getEventList().get(0).isCPU()){ 
-			throw new IllegalArgumentException("Next event is not OTH, but Instance is in OTH queue");
+	public int getNextOTHCommandTime() {
+		if(this.getCommandList().get(0).isCPU()){ 
+			throw new IllegalArgumentException("Next Command is not OTH, but Instance is in OTH queue");
 		}
 		
-		return this.eventList.get(0).getTimeEvent();
+		return this.commandList.get(0).getTimeCommand();
 	}
 		
 	/** */
 	// TODO do we need this?
-	private int getTotalNumberEvents() {
+	private int getTotalNumberCommands() {
 		return 0;
 	}
 
@@ -86,8 +86,8 @@ public class Instance implements Comparable<Instance>{
 	// Getters
 	public int getPid() { return this.pid; }
 
-	public List<Command> getEventList() {
-		return this.eventList;
+	public List<Command> getCommandList() {
+		return this.commandList;
 	}
 
 	public int getStartTime() {	return this.startTime; }
@@ -95,8 +95,8 @@ public class Instance implements Comparable<Instance>{
 	
 	
 	// Setters
-//	private void setEventList(List<Command> eventList) {
-//		this.eventList = eventList;
+//	private void setCommandList(List<Command> commandList) {
+//		this.commandList = commandList;
 //	}
 //
 //	private void setPid(int pid) {

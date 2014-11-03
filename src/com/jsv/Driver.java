@@ -35,7 +35,7 @@ public class Driver {
 		// Priority 
 		// Pick the time of the next CPU call and find
 		// Least other time
-		// Total number of events
+		// Total number of commands
 		
 		// Time slicing
 		
@@ -63,15 +63,15 @@ public class Driver {
 				pid++;
 			}
 			
-			// CPU event
+			// CPU command
 			if(commandTime[0].equals(CPU)) {
-				// Get the last Instance and add a new event
+				// Get the last Instance and add a new command
 				instanceTable.get(pid-1).addCommand(new Command(1, Integer.parseInt(commandTime[1])));
 			}
 						
-			// Other event
+			// Other command
 			if(commandTime[0].equals(OTH)) {
-				// Get the last Instance and add a new event
+				// Get the last Instance and add a new command
 				instanceTable.get(pid-1).addCommand(new Command(2, Integer.parseInt(commandTime[1])));
 			}
 					
