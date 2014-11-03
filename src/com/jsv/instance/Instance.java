@@ -7,7 +7,8 @@ import com.jsv.command.Command;
 
 /**
  * Instance class that has a pid, a start time, and a list of commands that it 
- * executes. It implements the Comparable interface
+ * executes. It implements the Comparable interface. Commands will get removed
+ * from the list once they are completed
  */
 
 public class Instance implements Comparable<Instance>{
@@ -76,6 +77,7 @@ public class Instance implements Comparable<Instance>{
 		
 	/** */
 	// TODO do we need this?
+	@SuppressWarnings("unused")
 	private int getTotalNumberCommands() {
 		return 0;
 	}

@@ -1,7 +1,6 @@
 package com.jsv.hardware;
 
 import com.jsv.Driver;
-import com.jsv.command.Command;
 import com.jsv.instance.Instance;
 
 import java.util.ArrayList;
@@ -22,57 +21,59 @@ public class CPU {
 		this.currentInstanceFinishTime = -1;
 	}
 	
-	/***/
+	/** Add an Instance to the queue
+	 */
 	public void add(Instance instance) {
-		if(this.instanceQueue.isEmpty()) {
-			this.currentInstanceFinishTime = Driver.clock + instance.getNextCPUCommandTime();
+		// If the queue is empty by the time we want to add an instance, see the finish time
+		if(this.getInstanceQueue().isEmpty()) {
+			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
 		}
 		
-		instanceQueue.add(instance);
+		this.getInstanceQueue().add(instance);
 	}
-	
-	public int nextFinishTime()
-	{
-		return this.currentInstanceFinishTime;
-	}
-	
-	public int getTotalTime()
-	{
+		
+	/** Get the total time of the instances in the queue
+	 */
+	public int getTotalTime() {
 		int totalTime = 0;
-		for(Instance instance : instanceQueue)
-		{
+	
+		for(Instance instance : this.getInstanceQueue()) {
 			totalTime += instance.getNextCPUCommandTime();
 		}
 		
 		return totalTime;
 	}
 	
-	public Instance remove()
-	{
-		Instance current = this.instanceQueue.poll();
-		Command command = current.remove();
-		if(this.instanceQueue.size()>0)
-		{
-			this.currentInstanceFinishTime = Driver.clock + this.instanceQueue.peek().getNextCPUCommandTime();
+	/** Removes an instance from the queue and returns it. Then it updates the finish time
+	 * depending if there are more Instances or not
+	 */
+	public Instance remove() {
+		// Remove the Instance from the queue
+		Instance current = this.getInstanceQueue().poll();
+		// Remove the latest command from the instance
+		current.remove();
+		
+		if(this.getInstanceQueue().size() > 0) {
+			this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceQueue().peek().getNextCPUCommandTime());
 		}else{
-			this.currentInstanceFinishTime = -1;
+			this.setCurrentInstanceFinishTime(-1);
 		}
+		
 		return current;
 	}
 	
 	@Override
-	public String toString()
-	{
-		ArrayList<Instance> copy = new ArrayList(this.instanceQueue);
-		String ret_string = "";
+	/** Prints the Instances of the queue
+	 */
+	public String toString() {
+		ArrayList<Instance> queue = new ArrayList<Instance>(this.getInstanceQueue());
+		String returnString = "";
 		
-		for(Instance instance : copy)
-		{
-			ret_string += instance.getPid()+" ";
+		for(Instance instance : queue) {
+			returnString += instance.getPid() + ", ";
 		}
 		
-		ret_string.trim();
-		return ret_string;
+		return returnString.trim();
 	}
 	
 	
