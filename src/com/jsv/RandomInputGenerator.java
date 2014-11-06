@@ -8,37 +8,35 @@ import java.util.Random;
 
 public class RandomInputGenerator {
 	
-	public static void main(String[] args) throws IOException
-	{
+	public static void main(String[] args) throws IOException { 
 		Random rand = new Random();
-		int num_processes = 4;
-		int num_cpus = 0;
-		int cum_start_time = 0;
-		int rand_start_time = 0;
-		int cpu_time = 0;
-		int oth_time = 0;
+		int numProcesses = 4;
+		int numCpus = 0;
+		int newStartTime = 0;
+		int randStartTime = 0;
+		int cpuTime = 0;
+		int othTime = 0;
 		
-		File file = new File("src/rando.txt");
+		File file = new File("src/random.txt");
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file,false));
 	
 		
-		for(int i=0;i<num_processes;i++)
-		{
-			rand_start_time = rand.nextInt(100);
-			cum_start_time += rand_start_time;
-			bw.write("NEW "+cum_start_time);
+		for(int i=0;i<numProcesses;i++) {
+			randStartTime = rand.nextInt(100);
+			newStartTime += randStartTime;
+			bw.write("NEW "+newStartTime);
 			bw.newLine();
-			do{
-				num_cpus = rand.nextInt(10);
-			}while(num_cpus == 0);
 			
-			for(int j=0;j<num_cpus;j++)
-			{
-				cpu_time = rand.nextInt(500);
-				oth_time = rand.nextInt(500);
-				bw.write("CPU "+cpu_time);
+			do{
+				numCpus = rand.nextInt(10);
+			} while(numCpus == 0);
+			
+			for(int j=0;j<numCpus;j++) {
+				cpuTime = rand.nextInt(500);
+				othTime = rand.nextInt(500);
+				bw.write("CPU "+cpuTime);
 				bw.newLine();
-				bw.write("OTH "+oth_time);
+				bw.write("OTH "+othTime);
 				bw.newLine();
 			}
 			
