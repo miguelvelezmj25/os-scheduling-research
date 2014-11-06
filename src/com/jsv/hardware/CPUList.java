@@ -66,6 +66,19 @@ public class CPUList{
 			System.out.println(cpu);
 		}
 	}
+	
+	public int getNextFinishTime() {
+		int minTime = Integer.MAX_VALUE;
+		
+		for(CPU cpu : this.getInstanceQueues()) {
+			if(cpu.getCurrentInstanceFinishTime()!=-1)
+			{
+				minTime = Math.min(minTime, cpu.getCurrentInstanceFinishTime());
+			}
+		}
+		
+		return minTime;
+	}
 
 	// Getters
 	public ArrayList<CPU> getInstanceQueues() {
