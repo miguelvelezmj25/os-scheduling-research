@@ -20,13 +20,19 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
+	private static final int NUM_CPUS = 2;
 	public static int clock = 0; //Start at time 0
-	public static final int NUM_CPUS = 2;
+	
+//	public static PriorityQueue<OTH> othQueue;
+//	public static CPUList ryan;
+//	public static LinkedList<Instance> 
 	
 	
 	/** Alternate CPU and other call. Always start with CPU. 
 	 * @throws IOException 
 	 * */
+	
+	
 	
 	public static void main(String[] args) throws IOException {		
 		// First come first serve
@@ -84,20 +90,13 @@ public class Driver {
 		reader.close();
 		
 		
-		Queue<Instance> priority = new PriorityQueue<Instance>(instanceTable);
+//		Queue<Instance> priority = new PriorityQueue<Instance>(instanceTable);
 
 		/*
 		for(int i = 0; !priority.isEmpty(); i++) {
 			System.out.println(priority.poll().getPid());		
 		}*/
 
-						
-		CPUList slechta = new CPUList(Driver.NUM_CPUS);
-		
-		for(Instance instance : instanceTable)
-		{
-			slechta.add(instance);
-		}
 		
 	
 		/*slechta.printList();
@@ -107,14 +106,84 @@ public class Driver {
 		slechta.printList();*/
 		Queue<OTH> othQueue = new PriorityQueue<OTH>();
 		ArrayList<Instance> finishedList = new ArrayList<Instance>();
-		int originalLength = instanceTable.size();
 		
+		int originalLength = instanceTable.size();
+		CPUList cpuList = new CPUList(Driver.NUM_CPUS);
+		
+		
+		Driver.nextImportantEvent(othQueue, instanceTable, cpuList);
+		
+		for(Instance instance : instanceTable)
+		{
+			cpuList.add(instance);
+		}
+		/*
 		while(finishedList.size() != originalLength)
 		{
-			System.out.println("Hey bro");
-			finishedList.add(new Instance(0,0));
-		}
+			
+		}*/
 		
 		
 	}
+	/*
+	public static int nextImportantEvent(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList) {
+		int nextImportantTime = Integer.MAX_VALUE;
+		
+		
+		if(!othQueue.isEmpty()) {
+			nextImportantTime = Math.min(othQueue.peek().getExitTime(), nextImportantTime);
+		}
+		
+		if(!instanceList.isEmpty())
+		{
+			nextImportantTime = Math.min(instanceList.get(0).getStartTime(), nextImportantTime);
+		}
+		
+		if(!cpuList.getInstanceQueues().isEmpty())
+		{
+			nextImportantTime = Math.min(cpuList.getNextFinishTime(), nextImportantTime);
+		}
+		
+		
+		System.out.println("Next finish time: " + nextImportantTime);
+		
+		return nextImportantTime;
+	}*/
+	
+	public static int nextImportantEvent(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList)
+	{
+		int nextImportantTime = Integer.MAX_VALUE;
+		
+		int nextCpuTime;
+		int nextOthTime;
+		int nextNewTime;
+		
+		if(othQueue.isEmpty()){
+			nextOthTime = Integer.MAX_VALUE;
+		}else{
+			nextOthTime = othQueue.peek().getExitTime();
+		}
+		
+		if(cpuList.getInstanceQueues().isEmpty())
+		{
+			nextCpuTime = Integer.MAX_VALUE;
+		}else{
+			nextCpuTime = cpuList.getNextFinishTime();
+		}
+		
+		if(instanceList.isEmpty())
+		{
+			nextNewTime = Integer.MAX_VALUE;
+		}else{
+			nextNewTime = instanceList.get(0).getStartTime();
+		}
+		
+		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
+		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
+		
+		System.out.println("Next finish time: " + nextImportantTime);
+		
+		return nextImportantTime;
+	}
+	
 }
