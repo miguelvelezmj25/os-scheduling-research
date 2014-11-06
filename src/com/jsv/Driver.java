@@ -111,17 +111,40 @@ public class Driver {
 		CPUList cpuList = new CPUList(Driver.NUM_CPUS);
 		
 		
-		Driver.nextImportantEvent(othQueue, instanceTable, cpuList);
+//		Driver.nextImportantEvent(othQueue, instanceTable, cpuList);
 		
-		for(Instance instance : instanceTable)
-		{
-			cpuList.add(instance);
-		}
-		/*
+//		for(Instance instance : instanceTable)
+//		{
+//			cpuList.add(instance);
+//		}
+//		
+		int nextTime;
+		int flag;
+		
 		while(finishedList.size() != originalLength)
 		{
+			Driver.clock = nextImportantEvent(othQueue, instanceTable, cpuList);
+			flag = Driver.checkTimes(othQueue, instanceTable, cpuList, Driver.clock);
 			
-		}*/
+			System.out.println(flag);
+			
+			if(flag==0) //0 = CPU, 1 = OTH, 2 = New
+			{
+				// TODO leave CPU and move to OTH or FINISH
+			}
+			else if(flag==1) //0 = CPU, 1 = OTH, 2 = New
+			{
+//				othQueue.add() // TODO leave OTH and move to CPU or FINISH
+			}
+			else if(flag==2) //0 = CPU, 1 = OTH, 2 = New
+			{
+				// TODO leave NEW and move to CPU
+				cpuList.add(instanceTable.remove(0));
+			}
+			else {
+				throw new IllegalArgumentException("-1");
+			}
+		}
 		
 		
 	}
@@ -149,6 +172,49 @@ public class Driver {
 		
 		return nextImportantTime;
 	}*/
+	
+	public static int checkTimes(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList,int importantTime)
+	{
+		
+		int nextCpuTime;
+		int nextOthTime;
+		int nextNewTime;
+		
+		if(othQueue.isEmpty()){
+			nextOthTime = Integer.MAX_VALUE;
+		}else{
+			nextOthTime = othQueue.peek().getExitTime();
+		}
+		
+		if(cpuList.getInstanceQueues().isEmpty())
+		{
+			nextCpuTime = Integer.MAX_VALUE;
+		}else{
+			nextCpuTime = cpuList.getNextFinishTime();
+		}
+		
+		if(instanceList.isEmpty())
+		{
+			nextNewTime = Integer.MAX_VALUE;
+		}else{
+			nextNewTime = instanceList.get(0).getStartTime();
+		}
+		
+		if(importantTime == nextCpuTime)
+		{
+			return 0;
+		}
+		if(importantTime == nextOthTime)
+		{
+			return 1;
+		}
+		
+		if(importantTime == nextNewTime)
+		{
+			return 2;
+		}
+		return -1;
+	}
 	
 	public static int nextImportantEvent(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList)
 	{
