@@ -3,11 +3,13 @@ package com.jsv;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import com.jsv.hardware.OTH;
 import com.jsv.command.Command;
 import com.jsv.hardware.CPUList;
 import com.jsv.instance.Instance;
@@ -83,12 +85,13 @@ public class Driver {
 		
 		
 		Queue<Instance> priority = new PriorityQueue<Instance>(instanceTable);
-		
+
 		/*
 		for(int i = 0; !priority.isEmpty(); i++) {
 			System.out.println(priority.poll().getPid());		
 		}*/
-				
+
+						
 		CPUList slechta = new CPUList(Driver.NUM_CPUS);
 		
 		for(Instance instance : instanceTable)
@@ -97,12 +100,21 @@ public class Driver {
 		}
 		
 	
-		slechta.printList();
+		/*slechta.printList();
 		
 		System.out.println("Removing an Instance from CPU 1: " + slechta.pop(1).getPid());
 		
-		slechta.printList();
+		slechta.printList();*/
+		Queue<OTH> othQueue = new PriorityQueue<OTH>();
+		ArrayList<Instance> finishedList = new ArrayList<Instance>();
+		int originalLength = instanceTable.size();
+		
+		while(finishedList.size() != originalLength)
+		{
+			System.out.println("Hey bro");
+			finishedList.add(new Instance(0,0));
+		}
+		
 		
 	}
-
 }
