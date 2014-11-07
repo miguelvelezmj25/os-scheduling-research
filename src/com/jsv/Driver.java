@@ -22,18 +22,11 @@ public class Driver {
 	private static final String OTH = "OTH";
 	private static final int NUM_CPUS = 2;
 	public static int clock = 0; //Start at time 0
-	
-//	public static PriorityQueue<OTH> othQueue;
-//	public static CPUList ryan;
-//	public static LinkedList<Instance> 
-	
+		
 	
 	/** Alternate CPU and other call. Always start with CPU. 
 	 * @throws IOException 
 	 * */
-	
-	
-	
 	public static void main(String[] args) throws IOException {		
 		// First come first serve
 		

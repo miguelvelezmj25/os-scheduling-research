@@ -67,12 +67,14 @@ public class CPUList{
 		}
 	}
 	
+	/** Returns the minimum finish time of all the instances currently
+	 * running in a CPU
+	 */
 	public int getNextFinishTime() {
 		int minTime = Integer.MAX_VALUE;
 		
 		for(CPU cpu : this.getInstanceQueues()) {
-			if(cpu.getCurrentInstanceFinishTime()!=-1)
-			{
+			if(cpu.getCurrentInstanceFinishTime() != -1) {
 				minTime = Math.min(minTime, cpu.getCurrentInstanceFinishTime());
 			}
 		}
