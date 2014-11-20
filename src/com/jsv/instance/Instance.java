@@ -24,15 +24,19 @@ public class Instance implements Comparable<Instance>{
 	
 	@Override
 	public int compareTo(Instance instance) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/** Returns whether or not there are more commands.
+	 */
+	public boolean isEmpty() {
+		return this.getCommandList().isEmpty();
+	}
 	
 	/** Removes the first command in the command list and returns
 	 * it
 	 */
-	public Command remove() {
+	public Command removeCommand() {
 		return this.getCommandList().remove(0);
 	}
 	
@@ -55,11 +59,13 @@ public class Instance implements Comparable<Instance>{
 		return totalTime;
 	}
 	
-	/** Get the Command time of the next CPU command
+	/** Returns the Command time of the next CPU command
 	 */
 	public int getNextCPUCommandTime() {
 		if(!this.getCommandList().get(0).getIsCPU()) {
-			throw new IllegalArgumentException("Next Command is not CPU, but Instance is in CPU queue");
+			System.out.println("hello" + this.getCommandList().get(0));
+			throw new IllegalArgumentException("Next Command is not CPU, it is " + 
+					this.getCommandList().get(0).getCommandType() + ". Instance is in CPU queue");
 		}
 		
 		return this.commandList.get(0).getTimeCommand();
@@ -69,17 +75,18 @@ public class Instance implements Comparable<Instance>{
 	 */
 	public int getNextOTHCommandTime() {
 		if(this.getCommandList().get(0).getIsCPU()){ 
-			throw new IllegalArgumentException("Next Command is not OTH, but Instance is in OTH queue");
+			throw new IllegalArgumentException("Next Command is not OTH, it is " + 
+					this.getCommandList().get(0).getCommandType() + ". Instance is in CPU queue");
 		}
 		
 		return this.commandList.get(0).getTimeCommand();
 	}
 		
-	/** */
+	/** Returns the total number of commands.
+	 */
 	// TODO do we need this?
-	@SuppressWarnings("unused")
 	private int getTotalNumberCommands() {
-		return 0;
+		return this.getCommandList().size();
 	}
 
 	
