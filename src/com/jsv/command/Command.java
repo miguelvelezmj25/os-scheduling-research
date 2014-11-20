@@ -8,6 +8,7 @@ public class Command {
 	private boolean isCPU;
 	private boolean isNEW;
 	private boolean isOTH;
+	private String  commandType;
 	private int 	timeCommand;
 	
 	public Command(int flag, int timeCommand) {
@@ -17,12 +18,15 @@ public class Command {
 		
 		if(flag == 0) {
 			this.isNEW = true;
+			this.commandType = "NEW";
 		} 
 		else if(flag == 1) {
 			this.isCPU = true;
+			this.commandType = "CPU";
 		} 
 		else if(flag == 2) {
 			this.isOTH = true;
+			this.commandType = "OTH";
 		} 
 		else {
 			throw new IllegalArgumentException("You entered a number that does not correspond to a Command.");
@@ -30,8 +34,8 @@ public class Command {
 		
 		this.timeCommand = timeCommand;
 	}
-
-
+	
+	
 	// Getters
 	public boolean getIsCPU() {
 		return this.isCPU;
@@ -48,6 +52,11 @@ public class Command {
 	public int getTimeCommand() {
 		return this.timeCommand;
 	}
+
+	public String getCommandType() {
+		return this.commandType;
+	}
+
 
 
 	// Setters
@@ -68,6 +77,10 @@ public class Command {
 //
 //	private void setTimeCommand(int timeCommand) {
 //		this.timeCommand = timeCommand;
+//	}
+//	
+//	private void setType(String type) {
+//		this.type = type;
 //	}
 	
 }
