@@ -85,7 +85,7 @@ public class Driver {
 			Driver.clock = nextImportantEvent(othQueue, instanceTable, cpuList);
 			command = Driver.checkTimes(othQueue, instanceTable, cpuList, Driver.clock);
 			
-			System.out.println("Command: " + command);
+			System.out.println("\tCommand: " + command);
 			Instance instance;
 			
 			if(command==0) //0 = CPU, 1 = OTH, 2 = New
@@ -133,7 +133,7 @@ public class Driver {
 			
 		}
 		
-		System.out.println("we are done broski");
+		System.out.println("\n########### We are done broski ###########");
 		
 	}
 	
@@ -294,7 +294,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		System.out.println("Next important time: " + nextImportantTime);
+		System.out.println("################## NEXT IMPORTANT TIME: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}
