@@ -29,54 +29,28 @@ public class Driver {
 	 * @throws IOException 
 	 * */
 	public static void main(String[] args) throws IOException {		
-		// First come first serve
-		
-		// Shortest Job First
-		
-		// Priority 
-		// Pick the time of the next CPU call and find
-		// Least other time
-		// Total number of commands
-		
-		// Time slicing
-		
-		// Multiqueue
-		
+		/***
+		 * First come first serve
+		 * Shortest Job First
+		 * Priority
+		 * Pick the time of the next CPU call and find
+		 * Least other time
+		 * Total number of commands
+		 * Time slicing
+		 * Multiqueue
+		 */
 		
 		List<Instance> instanceTable = new LinkedList<Instance>();
 		
 		Driver.readInput(instanceTable);
-				
-		
-//		Queue<Instance> priority = new PriorityQueue<Instance>(instanceTable);
-
-		/*
-		for(int i = 0; !priority.isEmpty(); i++) {
-			System.out.println(priority.poll().getPid());		
-		}*/
-
-		
-	
-		/*slechta.printList();
-		
-		System.out.println("Removing an Instance from CPU 1: " + slechta.pop(1).getPid());
-		
-		slechta.printList();*/
-		
+						
 		Queue<OTH> othQueue = new PriorityQueue<OTH>();
 		ArrayList<Instance> finishedList = new ArrayList<Instance>();
 		
 		int originalLength = instanceTable.size();
 		CPUList cpuList = new CPUList(Driver.NUM_CPUS);
 		
-		
-//		Driver.nextImportantEvent(othQueue, instanceTable, cpuList);
-		
-//		for(Instance instance : instanceTable)
-//		{
-//			cpuList.add(instance);
-//		}
-//		
+	
 		int nextTime;
 		int command;
 		
@@ -136,32 +110,7 @@ public class Driver {
 		System.out.println("\n########### We are done broski at time " + Driver.clock + " ###########");
 		
 	}
-	
-	/*
-	public static int nextImportantEvent(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList) {
-		int nextImportantTime = Integer.MAX_VALUE;
-		
-		
-		if(!othQueue.isEmpty()) {
-			nextImportantTime = Math.min(othQueue.peek().getExitTime(), nextImportantTime);
-		}
-		
-		if(!instanceList.isEmpty())
-		{
-			nextImportantTime = Math.min(instanceList.get(0).getStartTime(), nextImportantTime);
-		}
-		
-		if(!cpuList.getInstanceQueues().isEmpty())
-		{
-			nextImportantTime = Math.min(cpuList.getNextFinishTime(), nextImportantTime);
-		}
-		
-		
-		System.out.println("Next finish time: " + nextImportantTime);
-		
-		return nextImportantTime;
-	}*/
-		
+			
 	public static void readInput(List<Instance> instanceTable) throws IOException {
 		int pid = 0;
 		
@@ -230,13 +179,8 @@ public class Driver {
 			nextOthTime = othQueue.peek().getExitTime();
 		}
 		
-//		if(cpuList.getInstanceQueues().isEmpty())
-//		{
-//			nextCpuTime = Integer.MAX_VALUE;
-//		}else{
-			nextCpuTime = cpuList.getNextFinishTime();
-//		}
-		
+		nextCpuTime = cpuList.getNextFinishTime();
+
 		if(instanceList.isEmpty())
 		{
 			nextNewTime = Integer.MAX_VALUE;
@@ -273,16 +217,7 @@ public class Driver {
 		}else{
 			nextOthTime = othQueue.peek().getExitTime();
 		}
-		
-//		if(cpuList.get)
-		/*
-		if(cpuList.getInstanceQueues().isEmpty())
-		{
-			nextCpuTime = Integer.MAX_VALUE;
-		}else{
-			nextCpuTime = cpuList.getNextFinishTime();
-		}*/
-		
+				
 		nextCpuTime = cpuList.getNextFinishTime();
 
 		if(instanceList.isEmpty())
@@ -295,7 +230,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		System.out.println("################## NEXT IMPORTANT TIME: " + nextImportantTime);
+		System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}
