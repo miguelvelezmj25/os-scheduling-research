@@ -36,7 +36,7 @@ public class CPU {
 			this.getInstanceQueue().add(instance);
 		}
 
-		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
+//		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
 	}
 		
 	/** Get the total time of the instances in the queue
@@ -78,7 +78,7 @@ public class CPU {
 		Instance toReturn = this.instanceInCPU;
 		toReturn.removeCommand();
 		
-		if(!this.instanceQueue.isEmpty()) {
+		if(this.getInstanceQueue().size() > 0) {
 			// Put the Instance from the queue in the hardware
 			this.setInstanceInCPU(this.getInstanceQueue().poll());
 			

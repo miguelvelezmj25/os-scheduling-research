@@ -14,7 +14,7 @@ public class CPUList{
 	
 	public CPUList(int numCPU) {		
 		for(int i = 0; i < numCPU; i++){
-			this.instanceQueues.add(new CPU(i));
+			this.getInstanceQueues().add(new CPU(i));
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class CPUList{
 	/** Returns the first Instance from the specified CPU
 	 */
 	public Instance pop(int cpuID) {
-		return this.getInstanceQueues().get(cpuID).remove();
+		return this.getInstanceQueues().get(cpuID).removeInstance();
 	}
 	
 	/** Returns the CPU index with the smallest current total time
@@ -55,7 +55,7 @@ public class CPUList{
 	
 	/** Return the specfied CPU
 	 */
-	public CPU get(int cpuID) {
+	public CPU getCPU(int cpuID) {
 		return this.getInstanceQueues().get(cpuID);
 	}
 	
@@ -75,6 +75,8 @@ public class CPUList{
 		
 		for(CPU cpu : this.getInstanceQueues()) {
 			if(cpu.getCurrentInstanceFinishTime() != -1) {
+//				System.out.println("Get Finish time: " + cpu.getCurrentInstanceFinishTime());
+				
 				minTime = Math.min(minTime, cpu.getCurrentInstanceFinishTime());
 			}
 		}
