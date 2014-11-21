@@ -197,7 +197,8 @@ public class Driver {
 			}
 					
 			// Read a new line
-			line = reader.readLine();			
+			line = reader.readLine();	
+			
 		} //Reads file in
 		
 		// Close the reader

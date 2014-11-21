@@ -23,6 +23,7 @@ public class Instance implements Comparable<Instance>{
 	}
 	
 	@Override
+	// TODO Are we going to change this?
 	public int compareTo(Instance instance) {
 		return 0;
 	}
@@ -46,7 +47,7 @@ public class Instance implements Comparable<Instance>{
 		this.getCommandList().add(command);
 	}
 	
-	// TODO fast access time
+	// TODO fast access time???
 	/** Getting the total time of all of the commands of this Instance
 	 */
 	protected int getTotalTime() {
@@ -83,7 +84,6 @@ public class Instance implements Comparable<Instance>{
 		
 	/** Returns the total number of commands.
 	 */
-	// TODO do we need this?
 	private int getTotalNumberCommands() {
 		return this.getCommandList().size();
 	}
