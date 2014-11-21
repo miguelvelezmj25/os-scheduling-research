@@ -47,7 +47,6 @@ public class Instance implements Comparable<Instance>{
 		this.getCommandList().add(command);
 	}
 	
-	// TODO fast access time???
 	/** Getting the total time of all of the commands of this Instance
 	 */
 	protected int getTotalTime() {

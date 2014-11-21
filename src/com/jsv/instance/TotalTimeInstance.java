@@ -10,9 +10,9 @@ public class TotalTimeInstance extends Instance {
 	}
 	
 	@Override
-	public int compareTo(Instance o) {
+	public int compareTo(Instance instance) {
 		int thisTotalTime = super.getTotalTime();
-		int otherTotalTime = o.getTotalTime();
+		int otherTotalTime = instance.getTotalTime();
 		
 		if(thisTotalTime < otherTotalTime) {
 			return -1;

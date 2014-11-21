@@ -30,5 +30,4 @@ public class ShortestJobTimeInstance extends Instance {
 		return 0;
 	}
 
-
 }

@@ -10,6 +10,7 @@ public class FCFSInstance extends Instance {
 	}
 	
 	@Override
+	// TODO Really? We are going to move someone first becuase of their id?
 	public int compareTo(Instance o) {
 		if(super.getPid() < o.getPid()) {
 			return -1;
