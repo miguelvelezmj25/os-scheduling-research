@@ -133,7 +133,7 @@ public class Driver {
 			
 		}
 		
-		System.out.println("\n########### We are done broski ###########");
+		System.out.println("\n########### We are done broski at time " + Driver.clock + " ###########");
 		
 	}
 	
