@@ -15,33 +15,42 @@ import java.util.PriorityQueue;
 public class CPU {
 	
 	private PriorityQueue<Instance> 	instanceQueue = new PriorityQueue<Instance>();
+	private Instance					instanceInCPU;
 	private int 						currentInstanceFinishTime;
 	private int 						cpuId; 
 	
 	public CPU(int i) {
 		this.cpuId = i;
 		this.currentInstanceFinishTime = -1;
+		this.instanceInCPU = null;
 	}
 	
 	/** Add an Instance to the queue
 	 */
 	public void add(Instance instance) {
-		// If the queue is empty by the time we want to add an instance, see the finish time
-		if(this.getInstanceQueue().isEmpty()) {
+		// If the hardware itself is empty, the add the instance to it
+		if(this.getInstanceInCPU() == null) {
 			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
+			this.setInstanceInCPU(instance);
+		}else{		
+			this.getInstanceQueue().add(instance);
 		}
-		
-		this.getInstanceQueue().add(instance);
+
+		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
 	}
 		
 	/** Get the total time of the instances in the queue
 	 */
 	public int getTotalTime() {
 		int totalTime = 0;
-	
+		
+		// Adding the CPU service time of each instance
 		for(Instance instance : this.getInstanceQueue()) {
 			totalTime += instance.getNextCPUCommandTime();
 		}
+		
+		// Adding the remaining time of the instance in the CPU
+		totalTime += (this.getCurrentInstanceFinishTime() - Driver.clock);
 		
 		return totalTime;
 	}
@@ -49,7 +58,8 @@ public class CPU {
 	/** Removes an instance from the queue and returns it. Then it updates the finish time
 	 * depending if there are more Instances or not
 	 */
-	public Instance remove() {
+	public Instance removeInstance() {
+		/*
 		// Remove the Instance from the queue
 		Instance current = this.getInstanceQueue().poll();
 		// Remove the latest command from the instance
@@ -62,6 +72,22 @@ public class CPU {
 		}
 		
 		return current;
+		*/
+		
+		// Remove the CPU command of the Instance
+		Instance toReturn = this.instanceInCPU;
+		toReturn.removeCommand();
+		
+		if(!this.instanceQueue.isEmpty()) {
+			// Put the Instance from the queue in the hardware
+			this.setInstanceInCPU(this.getInstanceQueue().poll());
+			
+			this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceInCPU().getNextCPUCommandTime());
+		}else{
+			this.setCurrentInstanceFinishTime(-1);
+		}
+		
+		return toReturn;
 	}
 	
 	@Override
@@ -69,7 +95,7 @@ public class CPU {
 	 */
 	public String toString() {
 		ArrayList<Instance> queue = new ArrayList<Instance>(this.getInstanceQueue());
-		String returnString = "CPU " + this.getCPUId() + ": ";
+		String returnString = "CPU " + this.getCPUId() + ": " + this.getInstanceInCPU() + "\t Queue Contains: ";
 		
 		for(Instance instance : queue) {
 			returnString += instance.getPid() + " ";
@@ -91,6 +117,10 @@ public class CPU {
 	public int getCPUId() {
 		return this.cpuId;
 	}
+	
+	public Instance getInstanceInCPU() {
+		return this.instanceInCPU;
+	}
 
 	
 	// Setters
@@ -100,6 +130,10 @@ public class CPU {
 	
 	public void setCurrentInstanceFinishTime(int currentInstanceFinishTime) {
 		this.currentInstanceFinishTime = currentInstanceFinishTime;
+	}
+	
+	public void setInstanceInCPU(Instance instance) {
+		this.instanceInCPU = instance;
 	}
 	
 //	public void setCPUId(int cpuId) {
