@@ -63,7 +63,6 @@ public class Instance implements Comparable<Instance>{
 	 */
 	public int getNextCPUCommandTime() {
 		if(!this.getCommandList().get(0).getIsCPU()) {
-			System.out.println("hello" + this.getCommandList().get(0));
 			throw new IllegalArgumentException("Next Command is not CPU, it is " + 
 					this.getCommandList().get(0).getCommandType() + ". Instance is in CPU queue");
 		}
