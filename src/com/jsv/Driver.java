@@ -21,7 +21,7 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
-	private static final int NUM_CPUS = 1;
+	private static final int NUM_CPUS = 2;
 	public static int clock = 0; //Start at time 0
 		
 	
@@ -78,45 +78,52 @@ public class Driver {
 //		}
 //		
 		int nextTime;
-		int flag;
+		int command;
 		
 		while(finishedList.size() != originalLength)
 		{
 			Driver.clock = nextImportantEvent(othQueue, instanceTable, cpuList);
-			flag = Driver.checkTimes(othQueue, instanceTable, cpuList, Driver.clock);
+			command = Driver.checkTimes(othQueue, instanceTable, cpuList, Driver.clock);
 			
-			System.out.println("Flag: " + flag);
-			Instance temp;
-			if(flag==0) //0 = CPU, 1 = OTH, 2 = New
+			System.out.println("Command: " + command);
+			Instance instance;
+			
+			if(command==0) //0 = CPU, 1 = OTH, 2 = New
 			{
-				temp = cpuList.pop(0);
-				if(temp.isEmpty())
-				{
-					finishedList.add(temp);
+				for(int i = 0; i < NUM_CPUS; i++) {
+					if(cpuList.getCPU(i).getCurrentInstanceFinishTime() == Driver.clock) {
+						instance = cpuList.pop(i);
+						
+						if(instance.isEmpty())
+						{
+							System.out.println("Instance " + instance.getPid() + " is done");
+							finishedList.add(instance);
+						}
+						else
+						{
+							othQueue.add(new OTH(instance));
+						}											
+					}
 				}
-				else
-				{
-					othQueue.add(new OTH(temp));
-				}
-				// TODO leave CPU and move to OTH or FINISH
+				
 			}
-			else if(flag==1) //0 = CPU, 1 = OTH, 2 = New
+			else if(command==1) //0 = CPU, 1 = OTH, 2 = New
 			{
-				temp = othQueue.poll().getInstance();
-				temp.removeCommand();
-				if(temp.isEmpty())
+				instance = othQueue.poll().getInstance();
+				instance.removeCommand();
+				if(instance.isEmpty())
 				{
-					finishedList.add(temp);
+					System.out.println("Instance " + instance.getPid() + " is done");
+					finishedList.add(instance);
 				}
 				else
 				{
-					cpuList.add(temp);
+					cpuList.add(instance);
 				}				
-//				othQueue.add() // TODO leave OTH and move to CPU or FINISH
+
 			}
-			else if(flag==2) //0 = CPU, 1 = OTH, 2 = New
+			else if(command==2) //0 = CPU, 1 = OTH, 2 = New
 			{
-				// TODO leave NEW and move to CPU
 				cpuList.add(instanceTable.remove(0));
 			}
 			else {
@@ -222,12 +229,12 @@ public class Driver {
 			nextOthTime = othQueue.peek().getExitTime();
 		}
 		
-		if(cpuList.getInstanceQueues().isEmpty())
-		{
-			nextCpuTime = Integer.MAX_VALUE;
-		}else{
+//		if(cpuList.getInstanceQueues().isEmpty())
+//		{
+//			nextCpuTime = Integer.MAX_VALUE;
+//		}else{
 			nextCpuTime = cpuList.getNextFinishTime();
-		}
+//		}
 		
 		if(instanceList.isEmpty())
 		{
@@ -287,7 +294,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		System.out.println("Next finish time: " + nextImportantTime);
+		System.out.println("Next important time: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}

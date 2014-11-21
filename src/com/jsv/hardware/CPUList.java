@@ -49,8 +49,11 @@ public class CPUList{
 	/** Adds an Instance to the CPU with the minimum total time
 	 */
 	public void add(Instance instance) {
-		int leastTime = this.getMinimumCPUTime();
-		this.getInstanceQueues().get(leastTime).add(instance);
+		int leastTimeCPU = this.getMinimumCPUTime();
+		
+		System.out.println("CPU index where the instance got added: " + leastTimeCPU);
+		
+		this.getInstanceQueues().get(leastTimeCPU).add(instance);
 	}
 	
 	/** Return the specfied CPU
