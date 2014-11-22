@@ -20,7 +20,7 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
-	private static final int NUM_CPUS = 16;
+	private static final int NUM_CPUS = 1;
 	public static int clock = 0; //Start at time 0
 		
 	
@@ -65,7 +65,7 @@ public class Driver {
 				
 				if(instance.isEmpty())
 				{
-					//System.out.println("Instance " + instance.getPid() + " is done");
+					System.out.println("Instance " + instance.getPid() + " is done");
 					finishedList.add(instance);
 				}
 				else
@@ -122,10 +122,10 @@ public class Driver {
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
 //				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
-//				instanceTable.add(new TotalTimeInstance(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new ShortestTotalTime(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new LowestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
-				instanceTable.add(new HighestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new HighestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
@@ -226,7 +226,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		//System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
+		System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}

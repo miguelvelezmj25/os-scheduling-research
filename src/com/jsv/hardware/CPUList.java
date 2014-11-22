@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import com.jsv.instance.Instance;
 
 /**
- * CPU List class that holds a list of CPU objects
+ * CPU List class that holds a list of CPU objects. Instances are added to the
+ * CPU with the smallest total time.
  */
 
 public class CPUList{

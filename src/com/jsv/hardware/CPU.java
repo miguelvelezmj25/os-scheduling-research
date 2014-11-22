@@ -1,16 +1,17 @@
 package com.jsv.hardware;
 
 import com.jsv.Driver;
+import com.jsv.instance.FCFS;
 import com.jsv.instance.Instance;
-import com.jsv.instance.ShortestJobTimeInstance;
+import com.jsv.instance.ShortestJobTime;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
  * CPU class that has a priority queue when Instances wait to access it and a finish time
- * for the current Instance. The first place in the queue indicates that the Instance is
- * "in the CPU."
+ * for the current Instance. We preempt something from the actual hardware if multiple
+ * Instaces are added at the same time to order correctly except with FCFS
  */
 
 public class CPU {
@@ -38,7 +39,7 @@ public class CPU {
 		}
 		else {
 			// If the algorithm we are using is SJT and it has the same start time as the clock
-			if(this.getInstanceInCPU().getStartTime() == Driver.clock && this.getInstanceInCPU() instanceof ShortestJobTimeInstance)
+			if(this.getInstanceInCPU().getStartTime() == Driver.clock && !(this.getInstanceInCPU() instanceof FCFS))
 			{
 				// Add it to the queue
 				this.getInstanceQueue().add(instance);
