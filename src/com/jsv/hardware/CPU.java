@@ -29,24 +29,31 @@ public class CPU {
 	/** Add an Instance to the queue
 	 */
 	public void add(Instance instance) {
-		// If the hardware itself is empty, the add the instance to it
+		// If the hardware itself is empty, then add the instance to it
 		if(this.getInstanceInCPU() == null) {
-			
 			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
 			this.setInstanceInCPU(instance);
+			
 			instance.setTimeEnterQueue(Driver.clock);
-		}else{
-			if(this.instanceInCPU.getStartTime() == Driver.clock && this.instanceInCPU instanceof ShortestJobTimeInstance)
+		}
+		else {
+			// If the algorithm we are using is SJT and it has the same start time as the clock
+			if(this.getInstanceInCPU().getStartTime() == Driver.clock && this.getInstanceInCPU() instanceof ShortestJobTimeInstance)
 			{
+				// Add it to the queue
 				this.getInstanceQueue().add(instance);
 				instance.setTimeEnterQueue(Driver.clock);
-				this.getInstanceQueue().add(this.instanceInCPU);
-				this.instanceInCPU = this.getInstanceQueue().poll();
-				this.currentInstanceFinishTime = Driver.clock + this.instanceInCPU.getNextCPUCommandTime();
 				
+				// Add the Instance in the actual hardware to the queue. This will sort using SJT
+				this.getInstanceQueue().add(this.instanceInCPU);
+				
+				// Add the SJT to the actual hardware
+				this.instanceInCPU = this.getInstanceQueue().poll();
+				this.currentInstanceFinishTime = Driver.clock + this.instanceInCPU.getNextCPUCommandTime();	
 			}
 			else
 			{
+				// Add the instance to the hardware
 				instance.setTimeEnterQueue(Driver.clock);
 				this.getInstanceQueue().add(instance);
 			}
@@ -55,7 +62,6 @@ public class CPU {
 		
 		//System.out.println(this.toString());
 
-//		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
 	}
 		
 	/** Get the total time of the instances in the queue
@@ -78,21 +84,6 @@ public class CPU {
 	 * depending if there are more Instances or not
 	 */
 	public Instance removeInstance() {
-		/*
-		// Remove the Instance from the queue
-		Instance current = this.getInstanceQueue().poll();
-		// Remove the latest command from the instance
-		current.remove();
-		
-		if(this.getInstanceQueue().size() > 0) {
-			this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceQueue().peek().getNextCPUCommandTime());
-		}else{
-			this.setCurrentInstanceFinishTime(-1);
-		}
-		
-		return current;
-		*/
-		
 		// Remove the CPU command of the Instance
 		Instance toReturn = this.instanceInCPU;
 		toReturn.removeCommand();
