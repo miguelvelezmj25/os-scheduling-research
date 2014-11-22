@@ -1,11 +1,19 @@
 package com.jsv.instance;
 
+/**
+ * Sorts by the highest cpu ratio meaning that Instances that need more CPU time
+ * have high priority. 
+ */
+
 public class HighestCPURatioInstance extends Instance{
+	
 	public HighestCPURatioInstance(int pid, int startTime) {
 		super(pid, startTime);
-		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	/** Compare the cpu ratio of the instances.
+	 */
 	public int compareTo(Instance instance) {
 		//System.out.println("This: " + this.getPid() + " - instance: " + instance.getPid());
 		
@@ -15,7 +23,7 @@ public class HighestCPURatioInstance extends Instance{
 		if(thisComp > othComp)
 		{
 			return -1;
-		}else if(othComp<thisComp){
+		}else if(othComp < thisComp){
 			return 1;
 		}
 		

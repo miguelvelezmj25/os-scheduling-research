@@ -10,6 +10,8 @@ public class TotalTimeInstance extends Instance {
 	}
 	
 	@Override
+	/** Sort by the total time of the Instance.
+	 */
 	public int compareTo(Instance instance) {
 		int thisTotalTime = super.getTotalTime();
 		int otherTotalTime = instance.getTotalTime();

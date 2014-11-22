@@ -10,11 +10,11 @@ public class FCFSInstance extends Instance {
 	}
 	
 	@Override
-	public int compareTo(Instance o) {
-		if(super.getTimeEnterQueue() < o.getTimeEnterQueue()) {
+	public int compareTo(Instance instance) {
+		if(super.getTimeEnterQueue() < instance.getTimeEnterQueue()) {
 			return -1;
 		}
-		else if(super.getTimeEnterQueue() == o.getTimeEnterQueue())
+		else if(super.getTimeEnterQueue() == instance.getTimeEnterQueue())
 		{
 			return 0;
 		}

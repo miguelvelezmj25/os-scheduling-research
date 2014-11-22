@@ -1,5 +1,10 @@
 package com.jsv.instance;
 
+/**
+ * Sorts by the lowest cpu ratio meaning that Instances that need less CPU time
+ * have high priority. 
+ */
+
 public class LowestCPURatioInstance extends Instance{
 
 	public LowestCPURatioInstance(int pid, int startTime) {
@@ -7,6 +12,9 @@ public class LowestCPURatioInstance extends Instance{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	/** Compare the cpu ratio of the Instances.
+	 */
 	public int compareTo(Instance instance) {
 		//System.out.println("This: " + this.getPid() + " - instance: " + instance.getPid());
 		
