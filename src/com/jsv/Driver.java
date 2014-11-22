@@ -62,6 +62,7 @@ public class Driver {
 			{
 				instance = othQueue.poll().getInstance();
 				instance.removeCommand();
+				
 				if(instance.isEmpty())
 				{
 					//System.out.println("Instance " + instance.getPid() + " is done");
@@ -106,8 +107,8 @@ public class Driver {
 	public static void readInput(List<Instance> instanceTable) throws IOException {
 		int pid = 0;
 		
-		//StringBuilder filePath = new StringBuilder("src/input.txt");
-		StringBuilder filePath = new StringBuilder("src/random3.txt");
+		StringBuilder filePath = new StringBuilder("src/input.txt");
+//		StringBuilder filePath = new StringBuilder("src/random3.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];

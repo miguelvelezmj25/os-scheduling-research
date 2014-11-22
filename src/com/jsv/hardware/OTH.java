@@ -1,7 +1,11 @@
 package com.jsv.hardware;
+
 import com.jsv.Driver;
 import com.jsv.instance.Instance;
 
+/** OTH hardware that wraps an Instance and runs it. All instances are 
+ * run in parallel.
+ */
 
 public class OTH implements Comparable<OTH>
 {
@@ -12,16 +16,6 @@ public class OTH implements Comparable<OTH>
 	{
 		this.instance = instance;
 		this.exitTime = Driver.clock + instance.getNextOTHCommandTime();
-	}
-	
-	public int getExitTime()
-	{
-		return this.exitTime;
-	}
-	
-	public Instance getInstance()
-	{
-		return this.instance;
 	}
 	
 	public int compareTo(OTH o) 
@@ -35,6 +29,16 @@ public class OTH implements Comparable<OTH>
 			return 0;
 		}
 		return 1;
+	}
+	
+	public int getExitTime()
+	{
+		return this.exitTime;
+	}
+	
+	public Instance getInstance()
+	{
+		return this.instance;
 	}
 	
 	
