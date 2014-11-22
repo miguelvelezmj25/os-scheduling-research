@@ -3,7 +3,6 @@ package com.jsv.hardware;
 import com.jsv.Driver;
 import com.jsv.instance.FCFS;
 import com.jsv.instance.Instance;
-import com.jsv.instance.ShortestJobTime;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;

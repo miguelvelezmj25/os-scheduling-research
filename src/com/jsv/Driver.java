@@ -42,8 +42,6 @@ public class Driver {
 		int originalLength = instanceTable.size();
 		CPUList cpuList = new CPUList(Driver.NUM_CPUS);
 		
-	
-		int nextTime;
 		int command;
 		
 		while(finishedList.size() != originalLength)
