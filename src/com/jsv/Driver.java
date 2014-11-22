@@ -20,7 +20,7 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
-	private static final int NUM_CPUS = 1;
+	private static final int NUM_CPUS = 16;
 	public static int clock = 0; //Start at time 0
 		
 	
@@ -119,11 +119,11 @@ public class Driver {
 			;
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
-				instanceTable.add(new FCFS(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new FCFS(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestTotalTime(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestJobTime(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new LowestCPURatio(pid, Integer.parseInt(commandTime[1])));
-//				instanceTable.add(new HighestCPURatio(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new HighestCPURatio(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
