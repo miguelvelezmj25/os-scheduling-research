@@ -2,6 +2,7 @@ package com.jsv.hardware;
 
 import com.jsv.Driver;
 import com.jsv.instance.Instance;
+import com.jsv.instance.ShortestJobTimeInstance;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -33,10 +34,12 @@ public class CPU {
 			
 			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
 			this.setInstanceInCPU(instance);
+			instance.setTimeInQueue(Driver.clock);
 		}else{
-			if(this.instanceInCPU.getStartTime() == Driver.clock)
+			if(this.instanceInCPU.getStartTime() == Driver.clock && this.instanceInCPU instanceof ShortestJobTimeInstance)
 			{
 				this.getInstanceQueue().add(instance);
+				instance.setTimeInQueue(Driver.clock);
 				this.getInstanceQueue().add(this.instanceInCPU);
 				this.instanceInCPU = this.getInstanceQueue().poll();
 				this.currentInstanceFinishTime = Driver.clock + this.instanceInCPU.getNextCPUCommandTime();
@@ -44,6 +47,7 @@ public class CPU {
 			}
 			else
 			{
+				instance.setTimeInQueue(Driver.clock);
 				this.getInstanceQueue().add(instance);
 			}
 			

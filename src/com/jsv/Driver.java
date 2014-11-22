@@ -14,7 +14,9 @@ import com.jsv.hardware.OTH;
 import com.jsv.command.Command;
 import com.jsv.hardware.CPUList;
 import com.jsv.instance.Instance;
+import com.jsv.instance.FCFSInstance;
 import com.jsv.instance.ShortestJobTimeInstance;
+import com.jsv.instance.TotalTimeInstance;
 
 public class Driver {
 	
@@ -128,9 +130,9 @@ public class Driver {
 			;
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
-//				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new TotalTimeInstance(pid, Integer.parseInt(commandTime[1])));
-				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			

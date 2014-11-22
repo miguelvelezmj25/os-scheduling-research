@@ -10,7 +10,7 @@ public class RandomInputGenerator {
 	
 	public static void main(String[] args) throws IOException { 
 		Random rand = new Random();
-		int numProcesses = 4;
+		int numProcesses = 75;
 		int numCpus = 0;
 		int newStartTime = 0;
 		int randStartTime = 0;

@@ -15,6 +15,7 @@ public class Instance implements Comparable<Instance>{
 	private List<Command> 	commandList = new LinkedList<Command>();
 	private int				pid;
 	private int				startTime;
+	private int				timeInQueue;
 	
 	
 	public Instance(int pid, int startTime) {
@@ -23,7 +24,6 @@ public class Instance implements Comparable<Instance>{
 	}
 	
 	@Override
-	// TODO Are we going to change this?
 	public int compareTo(Instance instance) {
 		return 0;
 	}
@@ -101,6 +101,14 @@ public class Instance implements Comparable<Instance>{
 	}
 
 	public int getStartTime() {	return this.startTime; }
+
+	public int getTimeInQueue() {
+		return timeInQueue;
+	}
+
+	public void setTimeInQueue(int timeInQueue) {
+		this.timeInQueue = timeInQueue;
+	}
 
 	
 	
