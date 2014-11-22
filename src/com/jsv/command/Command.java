@@ -58,7 +58,6 @@ public class Command {
 	}
 
 
-
 	// Setters
 //	private void setCPU(boolean isCPU) {
 //		this.isCPU = isCPU;

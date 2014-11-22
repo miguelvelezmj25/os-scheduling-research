@@ -21,7 +21,7 @@ public class Driver {
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
-	private static final int NUM_CPUS = 2;
+	private static final int NUM_CPUS = 1;
 	public static int clock = 0; //Start at time 0
 		
 	
@@ -62,7 +62,26 @@ public class Driver {
 			System.out.println("\tCommand: " + command);
 			Instance instance;
 			
-			if(command==0) //0 = CPU, 1 = OTH, 2 = New
+			if(command==2) //0 = CPU, 1 = OTH, 2 = New
+			{
+				cpuList.add(instanceTable.remove(0));
+			}
+			else if(command==1) //0 = CPU, 1 = OTH, 2 = New
+			{
+				instance = othQueue.poll().getInstance();
+				instance.removeCommand();
+				if(instance.isEmpty())
+				{
+					System.out.println("Instance " + instance.getPid() + " is done");
+					finishedList.add(instance);
+				}
+				else
+				{
+					cpuList.add(instance);
+				}				
+
+			}
+			else if(command==0) //0 = CPU, 1 = OTH, 2 = New
 			{
 				for(int i = 0; i < NUM_CPUS; i++) {
 					if(cpuList.getCPU(i).getCurrentInstanceFinishTime() == Driver.clock) {
@@ -81,25 +100,6 @@ public class Driver {
 				}
 				
 			}
-			else if(command==1) //0 = CPU, 1 = OTH, 2 = New
-			{
-				instance = othQueue.poll().getInstance();
-				instance.removeCommand();
-				if(instance.isEmpty())
-				{
-					System.out.println("Instance " + instance.getPid() + " is done");
-					finishedList.add(instance);
-				}
-				else
-				{
-					cpuList.add(instance);
-				}				
-
-			}
-			else if(command==2) //0 = CPU, 1 = OTH, 2 = New
-			{
-				cpuList.add(instanceTable.remove(0));
-			}
 			else {
 				throw new IllegalArgumentException("-1");
 			}
@@ -114,7 +114,8 @@ public class Driver {
 	public static void readInput(List<Instance> instanceTable) throws IOException {
 		int pid = 0;
 		
-		StringBuilder filePath = new StringBuilder("src/input.txt");
+		//StringBuilder filePath = new StringBuilder("src/input.txt");
+		StringBuilder filePath = new StringBuilder("src/random.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];

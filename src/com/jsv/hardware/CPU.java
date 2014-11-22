@@ -30,11 +30,26 @@ public class CPU {
 	public void add(Instance instance) {
 		// If the hardware itself is empty, the add the instance to it
 		if(this.getInstanceInCPU() == null) {
+			
 			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
 			this.setInstanceInCPU(instance);
-		}else{		
-			this.getInstanceQueue().add(instance);
+		}else{
+			if(this.instanceInCPU.getStartTime() == Driver.clock)
+			{
+				this.getInstanceQueue().add(instance);
+				this.getInstanceQueue().add(this.instanceInCPU);
+				this.instanceInCPU = this.getInstanceQueue().poll();
+				this.currentInstanceFinishTime = Driver.clock + this.instanceInCPU.getNextCPUCommandTime();
+				
+			}
+			else
+			{
+				this.getInstanceQueue().add(instance);
+			}
+			
 		}
+		
+		System.out.println(this.toString());
 
 //		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
 	}
@@ -85,6 +100,7 @@ public class CPU {
 			this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceInCPU().getNextCPUCommandTime());
 		}else{
 			this.setCurrentInstanceFinishTime(-1);
+			this.setInstanceInCPU(null);
 		}
 		
 		return toReturn;

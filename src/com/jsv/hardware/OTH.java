@@ -28,13 +28,13 @@ public class OTH implements Comparable<OTH>
 	{
 		if(o.getExitTime() > this.getExitTime())
 		{
-			return 1;
+			return -1;
 		}
 		else if(o.getExitTime() == this.getExitTime())
 		{
 			return 0;
 		}
-		return -1;
+		return 1;
 	}
 	
 	

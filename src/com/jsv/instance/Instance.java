@@ -87,7 +87,10 @@ public class Instance implements Comparable<Instance>{
 		return this.getCommandList().size();
 	}
 
-	
+	public String toString()
+	{
+		return "Instance " + this.pid + " started at " + this.startTime + " has the next command: " + this.commandList.get(0).getCommandType();
+	}
 	
 	
 	// Getters
