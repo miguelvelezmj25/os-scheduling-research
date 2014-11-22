@@ -87,6 +87,27 @@ public class Instance implements Comparable<Instance>{
 		return this.getCommandList().size();
 	}
 
+	/** For the current Instance, adds up all current CPU command times. Also adds up all current OTH times.
+	 * Ratio is (CPUTimes/(OTHTimes + CPUTIMES))
+	 */
+	public double getCPURatio()
+	{
+		double cpuTimeCount = 0.0;
+		double totalTimeCount = 0.0;
+		
+		for(Command c : this.getCommandList())
+		{
+			if(c.getIsCPU()){
+				cpuTimeCount += (double)c.getTimeCommand();
+				totalTimeCount += (double)c.getTimeCommand();
+			}else if(c.getIsOTH()){
+				totalTimeCount += (double)c.getTimeCommand();
+			}
+		}
+		
+		return (cpuTimeCount)/(totalTimeCount);
+	}
+
 	public String toString()
 	{
 		return "Instance " + this.pid + " started at " + this.startTime + " has the next command: " + this.commandList.get(0).getCommandType();
@@ -110,30 +131,6 @@ public class Instance implements Comparable<Instance>{
 		this.timeInQueue = timeInQueue;
 	}
 	
-	/**
-	 * 
-	 * For the current Instance, adds up all current CPU command times. Also adds up all current OTH times.
-	 * Ratio is (CPUTimes/(OTHTimes + CPUTIMES))
-	 * @author Ryan Slechta 
-	 * @return
-	 */
-	
-	public double getCPURatio()
-	{
-		double cpuTimeCount = 0.0;
-		double totalTimeCount = 0.0;
-		for(Command c : this.commandList)
-		{
-			if(c.getCommandType()=="CPU"){
-				cpuTimeCount += (double)c.getTimeCommand();
-				totalTimeCount += (double)c.getTimeCommand();
-			}else if(c.getCommandType()=="OTH"){
-				totalTimeCount += (double)c.getTimeCommand();
-			}
-		}
-		
-		return (cpuTimeCount)/(totalTimeCount);
-	}
 
 	
 	
