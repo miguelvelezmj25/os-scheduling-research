@@ -13,17 +13,14 @@ import java.util.Queue;
 import com.jsv.hardware.OTH;
 import com.jsv.command.Command;
 import com.jsv.hardware.CPUList;
-import com.jsv.instance.Instance;
-import com.jsv.instance.FCFSInstance;
-import com.jsv.instance.ShortestJobTimeInstance;
-import com.jsv.instance.TotalTimeInstance;
+import com.jsv.instance.*;
 
 public class Driver {
 	
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
-	private static final int NUM_CPUS = 1;
+	private static final int NUM_CPUS = 16;
 	public static int clock = 0; //Start at time 0
 		
 	
@@ -32,14 +29,7 @@ public class Driver {
 	 * */
 	public static void main(String[] args) throws IOException {		
 		/***
-		 * First come first serve
-		 * Shortest Job First
-		 * Priority
-		 * Pick the time of the next CPU call and find
-		 * Least other time
 		 * Total number of commands
-		 * Time slicing
-		 * Multiqueue
 		 */
 		
 		List<Instance> instanceTable = new LinkedList<Instance>();
@@ -61,7 +51,7 @@ public class Driver {
 			Driver.clock = nextImportantEvent(othQueue, instanceTable, cpuList);
 			command = Driver.checkTimes(othQueue, instanceTable, cpuList, Driver.clock);
 			
-			System.out.println("\tCommand: " + command);
+			//System.out.println("\tCommand: " + command);
 			Instance instance;
 			
 			if(command==2) //0 = CPU, 1 = OTH, 2 = New
@@ -74,7 +64,7 @@ public class Driver {
 				instance.removeCommand();
 				if(instance.isEmpty())
 				{
-					System.out.println("Instance " + instance.getPid() + " is done");
+					//System.out.println("Instance " + instance.getPid() + " is done");
 					finishedList.add(instance);
 				}
 				else
@@ -91,7 +81,7 @@ public class Driver {
 						
 						if(instance.isEmpty())
 						{
-							System.out.println("Instance " + instance.getPid() + " is done");
+							//System.out.println("Instance " + instance.getPid() + " is done");
 							finishedList.add(instance);
 						}
 						else
@@ -117,7 +107,7 @@ public class Driver {
 		int pid = 0;
 		
 		//StringBuilder filePath = new StringBuilder("src/input.txt");
-		StringBuilder filePath = new StringBuilder("src/random.txt");
+		StringBuilder filePath = new StringBuilder("src/random3.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];
@@ -130,9 +120,11 @@ public class Driver {
 			;
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
-				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new TotalTimeInstance(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new LowestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new HighestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
@@ -155,7 +147,7 @@ public class Driver {
 		
 		// Close the reader
 		reader.close();
-		
+		/*
 		for(Instance instance :instanceTable) {
 			System.out.println("Pid: " + instance.getPid());
 			System.out.println("Start time: " + instance.getStartTime());
@@ -166,7 +158,7 @@ public class Driver {
 			}
 			
 			System.out.println("");
-		}
+		}*/
 	}
 	
 	public static int checkTimes(Queue<OTH> othQueue, List<Instance> instanceList, CPUList cpuList,int importantTime)
@@ -233,7 +225,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
+		//System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}

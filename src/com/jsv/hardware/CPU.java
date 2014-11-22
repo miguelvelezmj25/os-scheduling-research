@@ -34,12 +34,12 @@ public class CPU {
 			
 			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
 			this.setInstanceInCPU(instance);
-			instance.setTimeInQueue(Driver.clock);
+			instance.setTimeEnterQueue(Driver.clock);
 		}else{
 			if(this.instanceInCPU.getStartTime() == Driver.clock && this.instanceInCPU instanceof ShortestJobTimeInstance)
 			{
 				this.getInstanceQueue().add(instance);
-				instance.setTimeInQueue(Driver.clock);
+				instance.setTimeEnterQueue(Driver.clock);
 				this.getInstanceQueue().add(this.instanceInCPU);
 				this.instanceInCPU = this.getInstanceQueue().poll();
 				this.currentInstanceFinishTime = Driver.clock + this.instanceInCPU.getNextCPUCommandTime();
@@ -47,13 +47,13 @@ public class CPU {
 			}
 			else
 			{
-				instance.setTimeInQueue(Driver.clock);
+				instance.setTimeEnterQueue(Driver.clock);
 				this.getInstanceQueue().add(instance);
 			}
 			
 		}
 		
-		System.out.println(this.toString());
+		//System.out.println(this.toString());
 
 //		System.out.println("Instance queue and add: " + this.instanceQueue.size());	
 	}

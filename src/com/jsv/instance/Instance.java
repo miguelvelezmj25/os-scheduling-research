@@ -102,12 +102,37 @@ public class Instance implements Comparable<Instance>{
 
 	public int getStartTime() {	return this.startTime; }
 
-	public int getTimeInQueue() {
+	public int getTimeEnterQueue() {
 		return timeInQueue;
 	}
 
-	public void setTimeInQueue(int timeInQueue) {
+	public void setTimeEnterQueue(int timeInQueue) {
 		this.timeInQueue = timeInQueue;
+	}
+	
+	/**
+	 * 
+	 * For the current Instance, adds up all current CPU command times. Also adds up all current OTH times.
+	 * Ratio is (CPUTimes/(OTHTimes + CPUTIMES))
+	 * @author Ryan Slechta 
+	 * @return
+	 */
+	
+	public double getCPURatio()
+	{
+		double cpuTimeCount = 0.0;
+		double totalTimeCount = 0.0;
+		for(Command c : this.commandList)
+		{
+			if(c.getCommandType()=="CPU"){
+				cpuTimeCount += (double)c.getTimeCommand();
+				totalTimeCount += (double)c.getTimeCommand();
+			}else if(c.getCommandType()=="OTH"){
+				totalTimeCount += (double)c.getTimeCommand();
+			}
+		}
+		
+		return (cpuTimeCount)/(totalTimeCount);
 	}
 
 	
