@@ -17,8 +17,8 @@ public class ShortestTotalTime extends Instance {
 		int thisTotalTime = super.getTotalTime();
 		int otherTotalTime = instance.getTotalTime();
 		
-		System.out.println("PID: " + super.getPid() + " - " + thisTotalTime);
-		System.out.println("PID: " + instance.getPid() + " - " + otherTotalTime);
+//		System.out.println("PID: " + super.getPid() + " - " + thisTotalTime);
+//		System.out.println("PID: " + instance.getPid() + " - " + otherTotalTime);
 		
 		if(thisTotalTime < otherTotalTime) {
 			return -1;

@@ -63,7 +63,7 @@ public class Driver {
 				
 				if(instance.isEmpty())
 				{
-					System.out.println("Instance " + instance.getPid() + " is done");
+//					System.out.println("Instance " + instance.getPid() + " is done");
 					finishedList.add(instance);
 				}
 				else
@@ -105,8 +105,8 @@ public class Driver {
 	public static void readInput(List<Instance> instanceTable) throws IOException {
 		int pid = 0;
 		
-		StringBuilder filePath = new StringBuilder("src/input.txt");
-//		StringBuilder filePath = new StringBuilder("src/random3.txt");
+//		StringBuilder filePath = new StringBuilder("src/input.txt");
+		StringBuilder filePath = new StringBuilder("src/random3.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];
@@ -119,11 +119,11 @@ public class Driver {
 			;
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
-//				instanceTable.add(new FCFSInstance(pid, Integer.parseInt(commandTime[1])));
-				instanceTable.add(new ShortestTotalTime(pid, Integer.parseInt(commandTime[1])));
-//				instanceTable.add(new ShortestJobTimeInstance(pid, Integer.parseInt(commandTime[1])));
-//				instanceTable.add(new LowestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
-//				instanceTable.add(new HighestCPURatioInstance(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new FCFS(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new ShortestTotalTime(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new ShortestJobTime(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new LowestCPURatio(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new HighestCPURatio(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
@@ -224,7 +224,7 @@ public class Driver {
 		nextImportantTime = Math.min(nextOthTime, nextCpuTime);
 		nextImportantTime = Math.min(nextImportantTime, nextNewTime);
 		
-		System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
+//		System.out.println("\n################## NEXT IMPORTANT TIME: " + nextImportantTime);
 		
 		return nextImportantTime;
 	}
