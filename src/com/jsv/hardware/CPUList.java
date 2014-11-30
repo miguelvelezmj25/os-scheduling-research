@@ -67,7 +67,7 @@ public class CPUList{
 	 */
 	public void printList()	{
 		for(CPU cpu : this.getInstanceQueues()) {
-			System.out.println(cpu);
+//			System.out.println(cpu);
 		}
 	}
 	

@@ -3,6 +3,7 @@ package com.jsv.hardware;
 import com.jsv.Driver;
 import com.jsv.instance.FCFS;
 import com.jsv.instance.Instance;
+import com.jsv.instance.RoundRobin;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -31,13 +32,23 @@ public class CPU {
 	public void add(Instance instance) {
 		// If the hardware itself is empty, then add the instance to it
 		if(this.getInstanceInCPU() == null) {
-			this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
+			if((instance instanceof RoundRobin)){
+				if(instance.getRemainingTime() > Driver.QUANTUM_SIZE)
+				{
+					this.setCurrentInstanceFinishTime(Driver.clock + Driver.QUANTUM_SIZE);
+				}else{
+					this.setCurrentInstanceFinishTime(Driver.clock + instance.getRemainingTime());
+				}
+			}else{
+				this.setCurrentInstanceFinishTime(Driver.clock + instance.getNextCPUCommandTime());
+			}
 			this.setInstanceInCPU(instance);
 			
 			instance.setTimeEnterQueue(Driver.clock);
+			instance.setTimeInHardware(Driver.clock);
 		}
 		else {
-			// If the algorithm we are using is SJT and it has the same start time as the clock
+			// If the algorithm we are using is SJF and it has the same start time as the clock
 			if(this.getInstanceInCPU().getStartTime() == Driver.clock && !(this.getInstanceInCPU() instanceof FCFS))
 			{
 				// Add it to the queue
@@ -86,13 +97,41 @@ public class CPU {
 	public Instance removeInstance() {
 		// Remove the CPU command of the Instance
 		Instance toReturn = this.instanceInCPU;
-		toReturn.removeCommand();
+		toReturn.incrementQuanta();
+		
+		if(toReturn instanceof RoundRobin && toReturn.getRemainingTime() >0) {
+			//this.setInstanceInCPU(null);
+			this.add(toReturn);
+			
+			
+//			System.out.println(Driver.clock + " - " + toReturn.getRemainingTime());
+			
+			
+		}
+		else {
+			toReturn.removeCommand();			
+		}
+		
 		
 		if(this.getInstanceQueue().size() > 0) {
 			// Put the Instance from the queue in the hardware
 			this.setInstanceInCPU(this.getInstanceQueue().poll());
 			
-			this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceInCPU().getNextCPUCommandTime());
+			Instance instance = this.getInstanceInCPU();
+		
+			if((instance instanceof RoundRobin)){
+				if(instance.getRemainingTime() > Driver.QUANTUM_SIZE)
+				{
+					this.setCurrentInstanceFinishTime(Driver.clock + Driver.QUANTUM_SIZE);
+				}else{
+					this.setCurrentInstanceFinishTime(Driver.clock + instance.getRemainingTime());
+				}
+			}else{
+			
+				this.setCurrentInstanceFinishTime(Driver.clock + this.getInstanceInCPU().getNextCPUCommandTime());
+			}
+			
+			this.getInstanceInCPU().setTimeInHardware(Driver.clock);
 		}else{
 			this.setCurrentInstanceFinishTime(-1);
 			this.setInstanceInCPU(null);
@@ -111,7 +150,7 @@ public class CPU {
 		for(Instance instance : queue) {
 			returnString += instance.getPid() + " ";
 		}
-		
+		returnString = returnString + " and time is " + Driver.clock;
 		return returnString.trim();
 	}
 	
