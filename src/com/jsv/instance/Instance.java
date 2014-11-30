@@ -3,6 +3,7 @@ package com.jsv.instance;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.jsv.Driver;
 import com.jsv.command.Command;
 
 /**
@@ -16,11 +17,16 @@ public class Instance implements Comparable<Instance>{
 	private int				pid;
 	private int				startTime;
 	private int				timeInQueue;
+	private int				timeInHardware;
+	private int				quantaConsumed;
 	
 	
 	public Instance(int pid, int startTime) {
 		this.pid = pid;
 		this.startTime = startTime;
+		this.quantaConsumed = 0;
+		this.timeInHardware = 0;
+		this.timeInQueue = 0;
 	}
 	
 	@Override
@@ -131,6 +137,37 @@ public class Instance implements Comparable<Instance>{
 		this.timeInQueue = timeInQueue;
 	}
 	
+	public void setTimeInHardware(int timeInHardware){
+		this.timeInHardware = timeInHardware;
+	}
+	
+	public int getTimeInHardware(){
+		return this.timeInHardware;
+	}
+	public void zeroQuanta()
+	{
+		this.quantaConsumed = 0;
+	
+	}
+	public void incrementQuanta()
+	{
+		this.quantaConsumed++;
+	}
+	
+	/**
+	 * Gets the amount of time that the given instance still needs. That is, the total time it needed minus how much time it has already consumed.
+	 * @return An integer representing how much more time it needs in the CPU
+	 */
+	public int getRemainingTime()
+	{
+		int cpuCommandTime = this.getNextCPUCommandTime();
+		return cpuCommandTime - (this.quantaConsumed * Driver.QUANTUM_SIZE);
+		//Returns the total time the CPU command needs minus the time that has been applied to this process.
+	}
+	public String getNextCommand()
+	{
+		return this.commandList.get(0).getCommandType();
+	}
 
 	
 	
