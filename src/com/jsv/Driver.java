@@ -16,12 +16,13 @@ import com.jsv.hardware.CPUList;
 import com.jsv.instance.*;
 
 public class Driver {
-	
+	  
 	private static final String NEW = "NEW";
 	private static final String CPU = "CPU";
 	private static final String OTH = "OTH";
 	private static final int NUM_CPUS = 16;
 	public static int clock = 0; //Start at time 0
+	public static int QUANTUM_SIZE = 5;
 		
 	
 	/** Alternate CPU and other call. Always start with CPU. 
@@ -68,6 +69,7 @@ public class Driver {
 				}
 				else
 				{
+					instance.zeroQuanta();
 					cpuList.add(instance);
 				}				
 
@@ -80,12 +82,15 @@ public class Driver {
 						
 						if(instance.isEmpty())
 						{
-							//System.out.println("Instance " + instance.getPid() + " is done");
+//							System.out.println("Instance " + instance.getPid() + " is done");
 							finishedList.add(instance);
 						}
 						else
 						{
-							othQueue.add(new OTH(instance));
+							if(instance.getNextCommand() == "OTH")
+							{
+								othQueue.add(new OTH(instance));
+							}
 						}											
 					}
 				}
@@ -95,7 +100,7 @@ public class Driver {
 				throw new IllegalArgumentException("-1");
 			}
 			
-			
+//		System.out.println(cpuList.getCPU(0));	
 		}
 		
 		System.out.println("\n########### We are done broski at time " + Driver.clock + " ###########");
@@ -106,24 +111,26 @@ public class Driver {
 		int pid = 0;
 		
 //		StringBuilder filePath = new StringBuilder("src/input.txt");
-		StringBuilder filePath = new StringBuilder("src/random3.txt");
+		StringBuilder filePath = new StringBuilder("src/random1.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];
 		String line = reader.readLine();
 		
+		int minCPUTime = 0;
+		
 		
 		while(line != null) {
 			commandTime = line.split(" ");
 			
-			;
 			// Make a new Instance
 			if(commandTime[0].equals(NEW)) {
 //				instanceTable.add(new FCFS(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestTotalTime(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new ShortestJobTime(pid, Integer.parseInt(commandTime[1])));
 //				instanceTable.add(new LowestCPURatio(pid, Integer.parseInt(commandTime[1])));
-				instanceTable.add(new HighestCPURatio(pid, Integer.parseInt(commandTime[1])));
+//				instanceTable.add(new HighestCPURatio(pid, Integer.parseInt(commandTime[1])));
+				instanceTable.add(new RoundRobin(pid, Integer.parseInt(commandTime[1])));
 				pid++;
 			}
 			
@@ -131,6 +138,10 @@ public class Driver {
 			if(commandTime[0].equals(CPU)) {
 				// Get the last Instance and add a new command
 				instanceTable.get(pid-1).addCommand(new Command(1, Integer.parseInt(commandTime[1])));
+				if(Integer.parseInt(commandTime[1])!=0)
+				{
+					minCPUTime = Math.max(Integer.parseInt(commandTime[1]),minCPUTime);
+				}
 			}
 						
 			// Other command
@@ -146,6 +157,9 @@ public class Driver {
 		
 		// Close the reader
 		reader.close();
+		
+		Driver.QUANTUM_SIZE = (minCPUTime)/2;
+		System.out.println(minCPUTime);
 		/*
 		for(Instance instance :instanceTable) {
 			System.out.println("Pid: " + instance.getPid());
