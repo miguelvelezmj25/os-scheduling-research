@@ -28,11 +28,7 @@ public class Driver {
 	/** Alternate CPU and other call. Always start with CPU. 
 	 * @throws IOException 
 	 * */
-	public static void main(String[] args) throws IOException {		
-		/***
-		 * Total number of commands
-		 */
-		
+	public static void main(String[] args) throws IOException {				
 		List<Instance> instanceTable = new LinkedList<Instance>();
 		
 		Driver.readInput(instanceTable);
