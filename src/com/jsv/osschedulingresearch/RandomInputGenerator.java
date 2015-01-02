@@ -1,4 +1,4 @@
-package com.jsv;
+package com.jsv.osschedulingresearch;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,10 +1,10 @@
-package com.jsv.instance;
+package com.jsv.osschedulingresearch.instance;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.jsv.Driver;
-import com.jsv.command.Command;
+import com.jsv.osschedulingresearch.Driver;
+import com.jsv.osschedulingresearch.command.Command;
 
 /**
  * Instance class that has a pid, a start time, and a list of commands that it 

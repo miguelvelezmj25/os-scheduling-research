@@ -1,4 +1,4 @@
-package com.jsv.instance;
+package com.jsv.osschedulingresearch.instance;
 
 /**
  * Sorts by the smallest total time that an Instance needs to execute 

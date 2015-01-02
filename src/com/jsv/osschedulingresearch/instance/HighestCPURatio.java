@@ -1,4 +1,4 @@
-package com.jsv.instance;
+package com.jsv.osschedulingresearch.instance;
 
 /**
  * Sorts by the highest cpu ratio meaning that Instances that need more CPU time

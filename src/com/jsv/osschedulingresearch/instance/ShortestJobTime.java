@@ -1,4 +1,4 @@
-package com.jsv.instance;
+package com.jsv.osschedulingresearch.instance;
 
 /**
  * The first command of an Instance is CPU. We take the first command and

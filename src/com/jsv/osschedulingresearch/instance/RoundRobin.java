@@ -1,4 +1,4 @@
-package com.jsv.instance;
+package com.jsv.osschedulingresearch.instance;
 
 /**
  * It implements a First Come First Serve. Sorts by id. 
