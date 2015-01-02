@@ -105,9 +105,10 @@ public class Driver {
 			
 	public static void readInput(List<Instance> instanceTable) throws IOException {
 		int pid = 0;
+		String packageName = "src/com/jsv/osschedulingresearch/input/";
 		
-//		StringBuilder filePath = new StringBuilder("src/input.txt");
-		StringBuilder filePath = new StringBuilder("src/random1.txt");
+//		StringBuilder filePath = new StringBuilder(packageName + "src/input.txt");
+		StringBuilder filePath = new StringBuilder(packageName + "random1.txt");
 		BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()));
 		
 		String[] commandTime = new String[2];
