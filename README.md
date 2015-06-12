@@ -1,7 +1,7 @@
 OS Scheduling Research
 ===================
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mijecu25/dsa/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/miguelvelezmj25/os-scheduling-research/master/LICENSE)
 
 OS final project researching scheduling algorithms. We developed a Java program that simulated the execution of processes using different scheduling algorithms. We ran our simulations using 1, 4, 8, and 16 CPUs since those are some common configurations you find in current computers. 
 
