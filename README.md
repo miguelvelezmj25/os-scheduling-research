@@ -9,9 +9,7 @@ The algorithms we tested were First Come First Serve (FCFS), Shortest Job Time (
 
 We concluded that FCFS performs better with more processes and CPUs and, overall, it performs the best of all algorithms on multiple CPUs. We also confirmed that RR approximates FCFS fairly well with multiple CPUs. Finally, SJT and LCPUR may seem better, but when more processes were executed, we experience starvation and did not perform as well as others
 
-================
-
-###License
+## License
 
 The MIT License (MIT)
 
